@@ -18,8 +18,6 @@ namespace LDJam45
         protected SpriteFont font;
         protected ParticleGenerator pg;
 
-        Number number;
-
         // Levels
         string level1 = "Levels/level1.txt";
 
@@ -46,15 +44,12 @@ namespace LDJam45
             // Font
             font = contentManager.Load<SpriteFont>("Fonts/Joystix_32");
 
-            //Test Number
-            number = new Number(_graphicsDevice, 152, 8,
-                new Vector2(_graphicsDevice.PreferredBackBufferWidth, 150), 100, font);
-            numbers.Add(number);
-
             //Test Word
             currentWord = new Word(_graphicsDevice, "NOTHING", font);
             currentWord.LoadContent(contentManager);
 
+            //Test Number
+            SpawnNumber(152, 8, 100, 1);
         }
 
         public override void UnloadContent()
@@ -66,7 +61,7 @@ namespace LDJam45
         public override void Update(GameTime gameTime)
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
-
+            
             // Current Word
             currentWord.Update(gameTime);
 
@@ -138,6 +133,13 @@ namespace LDJam45
             }
         }
 
+        public void SpawnNumber(int number, int decim, int speed, int line)
+        {
+            float lineHeight = currentWord.GetLineHeight(line);
+            Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
+            numbers.Add(new Number(_graphicsDevice, number, decim, spawnPosition, speed, font));
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             // Current word
@@ -166,9 +168,12 @@ namespace LDJam45
 
 // Debug
 /*
-var debugText = timeBeforeShot;
-spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500,500),
+//DEBUG
+var debugText = bullets.Count;
+spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500, 500),
 Color.Black);
+//DEBUG
+
 var kstate = Keyboard.GetState();
 if (kstate.IsKeyDown(Keys.Up))
 {

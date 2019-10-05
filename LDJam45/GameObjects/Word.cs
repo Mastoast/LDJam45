@@ -13,6 +13,7 @@ namespace LDJam45
         private int length;
         private List<Letter> letters;
         private SpriteFont font;
+        private int lettersOffset;
 
         public Word(GraphicsDeviceManager graphicsDevice, string word, SpriteFont font) : base(graphicsDevice)
         {
@@ -25,7 +26,7 @@ namespace LDJam45
             int stringCount = word.Length;
             // Offset for first letter
             int wordSize = (stringCount * squareSize) + (stringCount - 1) * spaceMargin;
-            int lettersOffset = (availableSpace - wordSize) / 2 + (squareSize / 2);
+            lettersOffset = (availableSpace - wordSize) / 2 + (squareSize / 2);
 
             // init the list of letters
             this.letters = new List<Letter>();
@@ -33,7 +34,7 @@ namespace LDJam45
             {
                 Letter newLetter = new Letter(_graphicsDevice, word[i], font);
                 // place the letters at the center of the height
-                newLetter.position = new Vector2(leftPosition, lettersOffset + (squareSize) * (i) + ((spaceMargin) * i));
+                newLetter.position = new Vector2(leftPosition, lettersOffset + (squareSize * i) + (spaceMargin * i));
                 letters.Add(newLetter);
             }
         }
@@ -64,6 +65,12 @@ namespace LDJam45
             {
                 item.Update(delta);
             }
+        }
+
+        public float GetLineHeight(int line)
+        {
+            int squareSize = Letter.squareSize + Letter.squareMargin;
+            return lettersOffset + (squareSize * (line - 1)) + (spaceMargin * (line - 1)) - (squareSize / 2);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
