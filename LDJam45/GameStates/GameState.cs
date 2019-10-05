@@ -43,6 +43,10 @@ namespace LDJam45
 
             // Particle generator
             pg = ParticleGenerator.GetInstance(_graphicsDevice);
+
+            // Get levels
+            LevelsStorage.GenerateLevels();
+            // TODO Load levels
         }
 
         public override void LoadContent(ContentManager contentManager)
@@ -51,7 +55,7 @@ namespace LDJam45
             font = contentManager.Load<SpriteFont>("Fonts/Joystix_32");
 
             //Test Word
-            currentWord = new Word(_graphicsDevice, "NOTHING", font);
+            currentWord = new Word(_graphicsDevice, "IMPOSSIBLE", font);
             currentWord.LoadContent(contentManager);
 
             //Test Number
@@ -144,6 +148,13 @@ namespace LDJam45
             float lineHeight = currentWord.GetLineHeight(line);
             Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
             numbers.Add(new Number(_graphicsDevice, number, decim, spawnPosition, speed, font));
+        }
+
+        public void SpawnNumber(Spawn spawn)
+        {
+            float lineHeight = currentWord.GetLineHeight(spawn.line);
+            Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
+            numbers.Add(new Number(_graphicsDevice, spawn.number, spawn.decim, spawnPosition, spawn.speed, font));
         }
 
         public override void Draw(SpriteBatch spriteBatch)

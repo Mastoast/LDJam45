@@ -14,6 +14,9 @@ namespace LDJam45
         private List<Letter> letters;
         private SpriteFont font;
         private int lettersOffset;
+        private int lineWidth;
+
+        private Texture2D rectText;
 
         public Word(GraphicsDeviceManager graphicsDevice, string word, SpriteFont font) : base(graphicsDevice)
         {
@@ -37,6 +40,9 @@ namespace LDJam45
                 newLetter.position = new Vector2(leftPosition, lettersOffset + (squareSize * i) + (spaceMargin * i));
                 letters.Add(newLetter);
             }
+
+            // calculate line width
+            lineWidth = _graphicsDevice.PreferredBackBufferWidth - leftPosition;
         }
 
         public override void Initialize()
@@ -45,6 +51,11 @@ namespace LDJam45
 
         public override void LoadContent(ContentManager content)
         {
+            // Rectangle texture
+            rectText = new Texture2D(_graphicsDevice.GraphicsDevice, 1, 1);
+            rectText.SetData(new[] { Color.White });
+
+            // Letters
             foreach (var item in letters)
             {
                 item.LoadContent(content);
@@ -53,6 +64,10 @@ namespace LDJam45
 
         public override void UnloadContent()
         {
+            //Rectangle texture
+            rectText.Dispose();
+
+            // Letters
             foreach (var item in letters)
             {
                 item.UnloadContent();
@@ -69,14 +84,20 @@ namespace LDJam45
 
         public float GetLineHeight(int line)
         {
-            int squareSize = Letter.squareSize + Letter.squareMargin;
+            int squareSize = Letter.squareSize + Letter.squareMargin * 2;
             return lettersOffset + (squareSize * (line - 1)) + (spaceMargin * (line - 1)) - (squareSize / 2);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            // Letters
             foreach (var item in letters)
             {
+                // Draw lines
+                spriteBatch.Draw(rectText,
+                    new Rectangle(leftPosition, (int)item.position.Y, lineWidth, 2), null, Color.Gray);
+                
+                // Draw Letters
                 item.Draw(spriteBatch);
             }
         }
