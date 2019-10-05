@@ -9,15 +9,14 @@ namespace LDJam45
 {
     public class Letter : GameObject
     {
-        public string letter { get; }
+        public string letter;
         public Vector2 position;
 
         public static int squareSize = 40;
         public static int squareMargin = 8;
 
-        private int index;
         private float rotation;
-        private float rotationSpeed;
+        //private float rotationSpeed;
         private double cooldown = 0.0;
         private double timeBeforeShot = 0.0;
         private bool lastPressed = true;
@@ -26,7 +25,6 @@ namespace LDJam45
         private Vector2 squareOrigin;
 
         private SpriteFont font;
-        private GameState state;
         private Color letterColor = Color.Black;
         private Color marginColor = Color.Maroon;
         private Color backColor = Color.AntiqueWhite;
@@ -110,12 +108,19 @@ namespace LDJam45
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            DrawAtPosition(spriteBatch, this.position);
+        }
+
+        public void DrawAtPosition(SpriteBatch spriteBatch, Vector2 position)
+        {
             // Square Texture
             // margin
-            spriteBatch.Draw(squareText, new Rectangle((int)position.X, (int)position.Y, squareSize + squareMargin, squareSize + squareMargin),
+            spriteBatch.Draw(squareText, new Rectangle((int)position.X, (int)position.Y,
+                squareSize + squareMargin, squareSize + squareMargin),
                 null, marginColor, rotation, squareOrigin, SpriteEffects.None, 0f);
             // back
-            spriteBatch.Draw(squareText, new Rectangle((int)position.X, (int)position.Y, squareSize, squareSize),
+            spriteBatch.Draw(squareText, new Rectangle((int)position.X, (int)position.Y,
+                squareSize, squareSize),
                 null, backColor, rotation, squareOrigin, SpriteEffects.None, 0f);
 
             // Font

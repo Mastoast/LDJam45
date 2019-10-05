@@ -74,7 +74,8 @@ namespace LDJam45
         {
             //Font
             // number
-            spriteBatch.DrawString(font, number.ToString(), position, numberColor);
+            spriteBatch.DrawString(font, number.ToString(), position, numberColor, 0f,
+                Vector2.Zero, 1f, SpriteEffects.None, 0.8f);
 
             // decimal
             if (decim != 0)

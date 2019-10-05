@@ -64,6 +64,10 @@ namespace LDJam45
             // Current Word
             currentWord.Update(gameTime);
 
+            // Wait for init
+            if (!currentWord.initialized)
+                return;
+
             // Bullets
             // list of bullets
             for (int i = bullets.Count - 1; i >= 0; i--)
