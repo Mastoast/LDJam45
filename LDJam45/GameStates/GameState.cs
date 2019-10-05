@@ -14,8 +14,10 @@ namespace LDJam45
         protected SpriteFont font;
         protected ParticleGenerator pg;
 
-        //Letter letter;
         Number number;
+
+        // Levels
+        string level1 = "Levels/level1.txt";
 
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
@@ -23,6 +25,9 @@ namespace LDJam45
 
         public override void Initialize()
         {
+            // Level Parser
+            //LevelParser.ReadFile(level1);
+            
             // Numbers list
             numbers = new List<GameObject>();
 
