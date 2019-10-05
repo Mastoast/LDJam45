@@ -41,7 +41,7 @@ namespace LDJam45
             //letter.LoadContent(contentManager);
 
             //Test Word
-            currentWord = new Word(_graphicsDevice, "OUI", font);
+            currentWord = new Word(_graphicsDevice, "NOTHING", font);
             currentWord.LoadContent(contentManager);
 
         }

@@ -13,26 +13,28 @@ namespace LDJam45
 
         private SpriteFont font;
         private int leftPosition = 75;
-        private int topBottomMargin = 50;
-        private int spaceMargin = 32;
+        private int spaceMargin = 8;
 
         public Word(GraphicsDeviceManager graphicsDevice, string word, SpriteFont font) : base(graphicsDevice)
         {
             this.length = word.Length;
             this.font = font;
 
-            // Place words on screen
-            int availableSpace = _graphicsDevice.PreferredBackBufferHeight - (2 * topBottomMargin);
+            // Place word on screen
+            int availableSpace = _graphicsDevice.PreferredBackBufferHeight;
+            int squareSize = Letter.squareSize + Letter.squareMargin;
             int stringCount = word.Length;
+            // Offset for first letter
+            int wordSize = (stringCount * squareSize) + (stringCount - 1) * spaceMargin;
+            int lettersOffset = (availableSpace - wordSize) / 2 + (squareSize / 2);
 
+            // init the list of letters
             this.letters = new List<Letter>();
             for (int i = 0; i < this.length; i++)
             {
                 Letter newLetter = new Letter(_graphicsDevice, word[i], font);
-                int squareSize = newLetter.squareSize + newLetter.squareMargin;
                 // place the letters at the center of the height
-                int lettersOffset = topBottomMargin + (availableSpace - (stringCount * squareSize) - ((stringCount - 1) * spaceMargin))/2;
-                newLetter.position = new Vector2(leftPosition, topBottomMargin + lettersOffset + (squareSize / 2) * (i + 1) + (spaceMargin * i));
+                newLetter.position = new Vector2(leftPosition, lettersOffset + (squareSize) * (i) + ((spaceMargin) * i));
                 letters.Add(newLetter);
             }
         }

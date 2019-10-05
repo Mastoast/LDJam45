@@ -11,12 +11,12 @@ namespace LDJam45
         public string letter { get; }
         public Vector2 position;
 
-        public int squareSize = 40;
-        public int squareMargin = 6;
+        public static int squareSize = 40;
+        public static int squareMargin = 8;
 
         private float rotation;
         private float rotationSpeed;
-        private double cooldown = 1.0;
+        private double cooldown = 0.0;
         private double timeBeforeShot = 0.0;
         private bool lastPressed = true;
         private SpriteFont font;
