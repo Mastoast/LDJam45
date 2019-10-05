@@ -104,22 +104,31 @@ namespace LDJam45
         private void Shoot()
         {
             Bullet newBullet = new Bullet(_graphicsDevice, position, letter, font);
-            GameState.bullets.Add(newBullet);
+            if (GameState.bullets != null)
+                GameState.bullets.Add(newBullet);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             // Square Texture
             // margin
-            spriteBatch.Draw(squareText, new Rectangle((int)this.position.X, (int)this.position.Y, squareSize + squareMargin, squareSize + squareMargin), null,
-                marginColor, rotation, squareOrigin, SpriteEffects.None, 0f);
+            spriteBatch.Draw(squareText, new Rectangle((int)position.X, (int)position.Y, squareSize + squareMargin, squareSize + squareMargin),
+                null, marginColor, rotation, squareOrigin, SpriteEffects.None, 0f);
             // back
-            spriteBatch.Draw(squareText, new Rectangle((int)this.position.X, (int)this.position.Y, squareSize, squareSize), null,
-                backColor, rotation, squareOrigin, SpriteEffects.None, 0f);
+            spriteBatch.Draw(squareText, new Rectangle((int)position.X, (int)position.Y, squareSize, squareSize),
+                null, backColor, rotation, squareOrigin, SpriteEffects.None, 0f);
 
             // Font
             Vector2 middlePoint = font.MeasureString(letter) / 2;
-            spriteBatch.DrawString(font, letter, this.position, letterColor, 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(font, letter, position, letterColor,
+                0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+
+            // Font Shadow
+            float shadowOffset = 3f;
+            Color shadowColor = Color.Multiply(letterColor, 0.7f);
+            Vector2 shadowPos = new Vector2(position.X - shadowOffset, position.Y - shadowOffset);
+            spriteBatch.DrawString(font, letter, shadowPos, shadowColor,
+                0, middlePoint, 1.0f, SpriteEffects.None, 1f);
         }
     }
 }

@@ -51,6 +51,8 @@
     <Compile Include="GameObjects\ParticuleGenerator.cs" />
     <Compile Include="GameObjects\Word.cs" />
     <Compile Include="GameStates\GameState.cs" />
+    <Compile Include="GameStates\MenuState.cs" />
+    <Compile Include="GameStates\State.cs" />
     <Compile Include="Levels\LevelStorage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

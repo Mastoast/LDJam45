@@ -6,13 +6,12 @@ using System;
 
 namespace LDJam45
 {
-    public class GameState : GameObject
+    public class GameState : State
     {
         public static List<Bullet> bullets;
 
         public int health = 100;
 
-        protected Game game;
         protected Word currentWord;
         protected Level currentLevel;
         protected List<Number> numbers;
@@ -22,11 +21,6 @@ namespace LDJam45
 
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
-        }
-
-        public void SetGame(Game game)
-        {
-            this.game = game;
         }
 
         public override void Initialize()
@@ -143,11 +137,27 @@ namespace LDJam45
             numbers.Add(new Number(_graphicsDevice, number, decim, spawnPosition, speed, font));
         }
 
-        public void SpawnNumber(Spawn spawn)
+        public void SpawnNumber(Event @event)
         {
-            float lineHeight = currentWord.GetLineHeight(spawn.line);
-            Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
-            numbers.Add(new Number(_graphicsDevice, spawn.number, spawn.decim, spawnPosition, spawn.speed, font));
+            if (@event.line != 0)
+            {
+                // spawn event
+                float lineHeight = currentWord.GetLineHeight(@event.line);
+                Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
+                numbers.Add(new Number(_graphicsDevice, @event.number, @event.decim, spawnPosition, @event.speed, font));
+
+            }
+
+            if (@event.text != "")
+            {
+                // print event
+                Print(@event.text);
+            }
+        }
+
+        public void Print(string text)
+        {
+            // TODO Make prints
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -9,7 +9,7 @@ namespace LDJam45
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        private GameState currentState;
+        private State currentState;
 
         public Game1()
         {
@@ -21,7 +21,8 @@ namespace LDJam45
             Content.RootDirectory = "Content";
 
             // First state
-            currentState = new GameState(graphics);
+            currentState = new Menustate(graphics);
+            currentState.SetGame(this);
         }
 
         protected override void Initialize()
@@ -54,9 +55,14 @@ namespace LDJam45
             base.Update(gameTime);
         }
 
-        public void SetState(GameState newState)
+        public void SetState(State newState)
         {
+            // Unload old scene
+            currentState.UnloadContent();
+            // Init new scene
             currentState = newState;
+            currentState.Initialize();
+            currentState.LoadContent(Content);
         }
 
         protected override void Draw(GameTime gameTime)

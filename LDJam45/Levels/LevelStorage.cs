@@ -35,35 +35,44 @@ namespace LDJam45
     public struct Level
     {
         public string word;
-        public List<Spawn> spawns;
+        public List<Event> spawns;
 
         public Level(string word)
         {
             this.word = word;
-            spawns = new List<Spawn>();
+            spawns = new List<Event>();
         }
 
         public void Add(float time, int number, int decim, int speed, int line)
         {
-            spawns.Add(new Spawn(time, number, decim, speed, line));
+            spawns.Add(new Event(time, number, decim, speed, line));
         }
     }
 
-    public struct Spawn
+    public struct Event
     {
         public float time;
+        public string text;
         public int number;
         public int decim;
         public int speed;
         public int line;
 
-        public Spawn(float time, int number, int decim, int speed, int line)
+        public Event(float time, int number, int decim, int speed, int line)
         {
             this.time = time;
             this.number = number;
             this.decim = decim;
             this.speed = speed;
             this.line = line;
+            this.text = "";
+        }
+
+        public Event(float time, string text)
+        {
+            this.time = time;
+            this.text = text;
+            this.number = this.decim = this.speed = this.line = 0;
         }
     }
 }
