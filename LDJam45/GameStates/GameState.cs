@@ -14,13 +14,11 @@ namespace LDJam45
 
         protected Game game;
         protected Word currentWord;
+        protected Level currentLevel;
         protected List<Number> numbers;
 
         protected SpriteFont font;
         protected ParticleGenerator pg;
-
-        // Levels
-        string level1 = "Levels/level1.txt";
 
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
@@ -33,9 +31,6 @@ namespace LDJam45
 
         public override void Initialize()
         {
-            // Level Parser
-            //LevelParser.ReadFile(level1);
-            
             // Numbers list
             numbers = new List<Number>();
             // Bullets list
@@ -45,8 +40,8 @@ namespace LDJam45
             pg = ParticleGenerator.GetInstance(_graphicsDevice);
 
             // Get levels
-            LevelsStorage.GenerateLevels();
-            // TODO Load levels
+            LevelStorage.GenerateLevels();
+            currentLevel = LevelStorage.GetNextLevel();
         }
 
         public override void LoadContent(ContentManager contentManager)
@@ -82,7 +77,6 @@ namespace LDJam45
                 // Check out of screen
                 if (bullets[i].position.X >= _graphicsDevice.PreferredBackBufferWidth)
                 {
-                    // TODO loose score
                     bullets.RemoveAt(i);
                 }
                 else
@@ -101,7 +95,6 @@ namespace LDJam45
                             numbers.RemoveAt(j);
                             bullets.RemoveAt(i);
                             alive = false;
-                            // TODO ADD SCORE
                             break;
                         }
                     }
@@ -139,7 +132,7 @@ namespace LDJam45
             // Game Over
             if (amount <= 0)
             {
-                // TODO
+                // TODO Game over state
             }
         }
 
@@ -175,7 +168,7 @@ namespace LDJam45
             }
 
             // Health
-            // TODO
+            // TODO Draw health
 
             // Pg
             pg.Draw(spriteBatch);

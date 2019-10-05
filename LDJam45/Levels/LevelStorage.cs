@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LDJam45
 {
-    public static class LevelsStorage
+    public static class LevelStorage
     {
         public static List<Level> levels;
 
