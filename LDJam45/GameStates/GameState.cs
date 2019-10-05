@@ -13,6 +13,8 @@ namespace LDJam45
         //protected Ball ball;
         protected ParticleGenerator pg;
 
+        Letter letter;
+
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
         }
@@ -21,21 +23,20 @@ namespace LDJam45
         {
             actors = new List<GameObject>();
 
-            /* ball
-            ball = new Ball(_graphicsDevice, 100f);
-            ball.Initialize();*/
-
             // Particle generator
             pg = ParticleGenerator.GetInstance(_graphicsDevice);
         }
 
         public override void LoadContent(ContentManager content)
         {
-            // ball
-            //ball.LoadContent(content);
-
             // Font
-            font = content.Load<SpriteFont>("Fonts/Joystix");
+            font = content.Load<SpriteFont>("Fonts/Joystix_32");
+            // CHECK COLOR CHANGE
+            //font.Texture.GetData<>();
+
+            // TEST letter
+            //letter = new Letter(_graphicsDevice, 'A', font);
+            //letter.LoadContent(content);
 
         }
 
@@ -48,17 +49,17 @@ namespace LDJam45
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
 
+            // TEST letter
+            //letter.Update(gameTime);
+
             // pg
             pg.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            // Font
-            string text = "test";
-            Vector2 middlePoint = font.MeasureString(text)/2;
-            Vector2 position = new Vector2(_graphicsDevice.PreferredBackBufferWidth / 2, _graphicsDevice.PreferredBackBufferHeight / 2);
-            spriteBatch.DrawString(font, text, position, Color.White, 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+            // TEST letter
+            //letter.Draw(spriteBatch);
 
             // Pg
             pg.Draw(spriteBatch);

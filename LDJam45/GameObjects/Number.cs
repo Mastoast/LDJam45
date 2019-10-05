@@ -4,13 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LDJam45
 {
-    private SpriteFont font;
-
     class Number : GameObject
     {
         private SpriteFont font;
-        private int number { get; set; }
-        private int decim { get; set; }
+        private int number;
+        private int decim;
 
         public Number(GraphicsDeviceManager graphicsDevice, int number, int decim, SpriteFont font) : base(graphicsDevice)
         {

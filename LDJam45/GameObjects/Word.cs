@@ -7,9 +7,9 @@ namespace LDJam45
 {
     class Word : GameObject
     {
-        private int length { get; }
+        private int length;
         private List<Letter> letters;
-        private int health { get; set; }
+        private int health = 100;
         private SpriteFont font;
 
         public Word(GraphicsDeviceManager graphicsDevice, string word, SpriteFont font) : base(graphicsDevice)
@@ -20,7 +20,9 @@ namespace LDJam45
             this.letters = new List<Letter>();
             for (int i = 0; i < this.length; i++)
             {
-                letters.Add(new Letter(_graphicsDevice, word[i], font));
+                Letter newLetter = new Letter(_graphicsDevice, word[i], font);
+                newLetter.position = new Vector2(10 * i, 10 * i);
+                letters.Add(newLetter);
             }
         }
 
@@ -30,18 +32,34 @@ namespace LDJam45
 
         public override void LoadContent(ContentManager content)
         {
+            foreach (var item in letters)
+            {
+                item.LoadContent(content);
+            }
         }
 
         public override void UnloadContent()
         {
+            foreach (var item in letters)
+            {
+                item.UnloadContent();
+            }
         }
 
         public override void Update(GameTime delta)
         {
+            foreach (var item in letters)
+            {
+                item.Update(delta);
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            foreach (var item in letters)
+            {
+                item.Draw(spriteBatch);
+            }
         }
     }
 }

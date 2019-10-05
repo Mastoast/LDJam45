@@ -18,5 +18,5 @@
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Fonts/joystix.spritefont
+/build:Fonts/joystix.spritefont;Fonts/joystix_32.spritefont
 

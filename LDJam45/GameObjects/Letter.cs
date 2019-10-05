@@ -1,19 +1,39 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace LDJam45
 {
     class Letter : GameObject
     {
-        private char letter { get; }
-        private float colldown;
+        public string letter { get; }
+        public Vector2 position;
+
+        private float rotation;
+        private float rotationSpeed;
+        private double cooldown = 1.0;
+        private double timeBeforeShot = 0.0;
+        private bool lastPressed = true;
         private SpriteFont font;
+
+        private Texture2D squareText;
+        private int squareSize = 40;
+        private int squareMargin = 6;
+        private Vector2 squareOrigin;
+
+        private Color letterColor = Color.Black;
+        private Color marginColor = Color.Maroon;
+        private Color backColor = Color.AntiqueWhite;
 
         public Letter(GraphicsDeviceManager graphicsDevice, char letter, SpriteFont font) : base(graphicsDevice)
         {
-            this.letter = letter;
+            this.letter = letter.ToString().ToUpper();
+            
             this.font = font;
+            this.rotation = 0f;
+            this.position = new Vector2(100, 100);
         }
 
         public override void Initialize()
@@ -22,18 +42,85 @@ namespace LDJam45
 
         public override void LoadContent(ContentManager content)
         {
+            // create square texture
+            squareText = new Texture2D(_graphicsDevice.GraphicsDevice, 1, 1);
+            squareText.SetData(new[] { Color.White });
+            squareOrigin = new Vector2(squareText.Height / 2f, squareText.Width / 2f);
         }
 
         public override void UnloadContent()
         {
+            squareText.Dispose();
         }
 
-        public override void Update(GameTime delta)
+        public override void Update(GameTime gameTime)
         {
+            double delta = gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Reduce colldown
+            if (timeBeforeShot != 0.0)
+            {
+                timeBeforeShot -= delta;
+                if (timeBeforeShot < 0.0)
+                    timeBeforeShot = 0.0;
+            }
+
+            // Get pressed keys
+            Keys[] pressedKeys = Keyboard.GetState().GetPressedKeys();
+            bool pressed = false;
+            foreach (var item in pressedKeys)
+            {
+                if (item.ToString().ToUpper().Equals(letter))
+                {
+                    pressed = true;
+                }
+            }
+
+            // Letter is pressed
+            if (pressed)
+            {
+                // Only if new press
+                if (!lastPressed)
+                {
+                    // Shoot
+                    if (timeBeforeShot == 0.0)
+                    {
+                        this.Shoot();
+                        timeBeforeShot = cooldown;
+                    }
+                }
+                lastPressed = true;
+            }
+            else
+            {
+                this.lastPressed = false;
+            }
+
+        }
+
+        private void Shoot()
+        {
+            Console.WriteLine("SHOOT !");
+            position.X += 15;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            // Square Texture
+            // margin
+            spriteBatch.Draw(squareText, new Rectangle((int)this.position.X, (int)this.position.Y, squareSize + squareMargin, squareSize + squareMargin), null,
+                marginColor, rotation, squareOrigin, SpriteEffects.None, 0f);
+            // back
+            spriteBatch.Draw(squareText, new Rectangle((int)this.position.X, (int)this.position.Y, squareSize, squareSize), null,
+                backColor, rotation, squareOrigin, SpriteEffects.None, 0f);
+
+            // Font
+            Vector2 middlePoint = font.MeasureString(letter) / 2;
+            spriteBatch.DrawString(font, letter, this.position, letterColor, 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+
+            // Debug
+            var debugText = timeBeforeShot;
+            //spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500,500), letterColor, 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
         }
     }
 }
