@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LDJam45
 {
-    class ParticleGenerator
+    public class ParticleGenerator
     {
         private static ParticleGenerator instance;
 

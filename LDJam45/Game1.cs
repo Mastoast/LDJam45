@@ -6,10 +6,10 @@ namespace LDJam45
 {
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
-        GameState currentState;
+        private GameState currentState;
 
         public Game1()
         {
@@ -52,6 +52,11 @@ namespace LDJam45
             currentState.Update(gameTime);
 
             base.Update(gameTime);
+        }
+
+        public void SetState(GameState newState)
+        {
+            currentState = newState;
         }
 
         protected override void Draw(GameTime gameTime)

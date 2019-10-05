@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LDJam45
 {
-    class Bullet : GameObject
+    public class Bullet : GameObject
     {
         public static int speed = 1500;
         public string letter;

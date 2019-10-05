@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LDJam45
 {
-    abstract class GameObject
+    public abstract class GameObject
     {
         protected GraphicsDeviceManager _graphicsDevice;
         public GameObject(GraphicsDeviceManager graphicsDevice)

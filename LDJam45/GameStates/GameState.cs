@@ -6,14 +6,15 @@ using System;
 
 namespace LDJam45
 {
-    class GameState : GameObject
+    public class GameState : GameObject
     {
         public static List<Bullet> bullets;
 
         public int health = 100;
 
-        protected List<Number> numbers;
+        protected Game game;
         protected Word currentWord;
+        protected List<Number> numbers;
 
         protected SpriteFont font;
         protected ParticleGenerator pg;
@@ -23,6 +24,11 @@ namespace LDJam45
 
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
+        }
+
+        public void SetGame(Game game)
+        {
+            this.game = game;
         }
 
         public override void Initialize()

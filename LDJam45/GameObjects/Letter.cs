@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LDJam45
 {
-    class Letter : GameObject
+    public class Letter : GameObject
     {
         public string letter { get; }
         public Vector2 position;

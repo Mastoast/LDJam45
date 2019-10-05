@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LDJam45
 {
-    class Word : GameObject
+    public class Word : GameObject
     {
         public int spaceMargin = 10;
         public int leftPosition = 75;

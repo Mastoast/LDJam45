@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LDJam45
 {
-    class Number : GameObject
+    public class Number : GameObject
     {
         public int number;
         public Vector2 position;
