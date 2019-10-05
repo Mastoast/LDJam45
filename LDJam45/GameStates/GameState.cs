@@ -51,11 +51,10 @@ namespace LDJam45
 
             //  Start the first Word
             currentLevel = LevelStorage.GetNextLevel();
-            StartLevel();
-
+            StartLevel(null);
         }
 
-        public void StartLevel()
+        public void StartLevel(GameTime gameTime)
         {
             Console.WriteLine("START LEVEL");
             // Unload the old word
@@ -65,6 +64,9 @@ namespace LDJam45
             currentWord = new Word(_graphicsDevice, currentLevel.word, font);
             currentWord.Initialize();
             currentWord.LoadContent(contentManager);
+            // Reset level timer
+            if (gameTime != null)
+                gameTime.TotalGameTime = TimeSpan.Zero;
             // Start first event
             nextEvent = currentLevel.GetNextEvent();
         }
@@ -159,7 +161,7 @@ namespace LDJam45
                     SetWin();
                     return;
                 }
-                StartLevel();
+                StartLevel(gameTime);
                 return;
             }
             // Handle next event
