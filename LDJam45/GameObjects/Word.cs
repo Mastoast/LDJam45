@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace LDJam45
@@ -96,9 +97,10 @@ namespace LDJam45
 
         public float GetLineHeight(int line)
         {
-            int squareSize = Letter.squareSize + Letter.squareMargin * 2;
-            return lettersOffset + (squareSize * (line % length - 1))
-                + (spaceMargin * (line % length - 1)) - (squareSize / 2);
+            Console.WriteLine(length);
+            int squareSize = Letter.squareSize + Letter.squareMargin;
+            return lettersOffset + (squareSize * ((line % (length + 1)) - 1))
+                + (spaceMargin * ((line % (length + 1)) - 1)) - (squareSize / 2);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
