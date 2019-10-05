@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,6 +15,7 @@ namespace LDJam45
         public static int squareSize = 40;
         public static int squareMargin = 8;
 
+        private int index;
         private float rotation;
         private float rotationSpeed;
         private double cooldown = 0.0;
@@ -24,17 +26,18 @@ namespace LDJam45
         private Vector2 squareOrigin;
 
         private SpriteFont font;
+        private GameState state;
         private Color letterColor = Color.Black;
         private Color marginColor = Color.Maroon;
         private Color backColor = Color.AntiqueWhite;
 
-        public Letter(GraphicsDeviceManager graphicsDevice, char letter, SpriteFont font) : base(graphicsDevice)
+        public Letter(GraphicsDeviceManager graphicsDevice, char letter,SpriteFont font) : base(graphicsDevice)
         {
             this.letter = letter.ToString().ToUpper();
-            
+
             this.font = font;
             this.rotation = 0f;
-            this.position = new Vector2(100, 100);
+            this.position = Vector2.Zero;
         }
 
         public override void Initialize()
@@ -96,13 +99,12 @@ namespace LDJam45
             {
                 this.lastPressed = false;
             }
-
         }
 
         private void Shoot()
         {
-            Console.WriteLine("SHOOT !");
-            position.X += 15;
+            Bullet newBullet = new Bullet(_graphicsDevice, position, letter, font);
+            GameState.bullets.Add(newBullet);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

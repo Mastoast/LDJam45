@@ -7,9 +7,11 @@ namespace LDJam45
     class Number : GameObject
     {
         public int number;
+        public Vector2 position;
+        public int damage = 10;
+
         private int decim;
         private int speed;
-        public Vector2 position;
 
         private SpriteFont font;
         private Color numberColor = Color.Green;
@@ -59,6 +61,13 @@ namespace LDJam45
                 return decim;
             }
 
+        }
+
+        // Return rectangle hitbox
+        public Rectangle GetRectangle()
+        {
+            Vector2 measure = font.MeasureString(number.ToString());
+            return new Rectangle((int)position.X, (int)position.Y, (int)measure.X, (int)measure.Y);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

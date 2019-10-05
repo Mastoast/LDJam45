@@ -8,12 +8,10 @@ namespace LDJam45
     class Word : GameObject
     {
         public int spaceMargin = 10;
+        public int leftPosition = 75;
 
         private int length;
         private List<Letter> letters;
-        private int health = 100;
-
-        private int leftPosition = 75;
         private SpriteFont font;
 
         public Word(GraphicsDeviceManager graphicsDevice, string word, SpriteFont font) : base(graphicsDevice)
