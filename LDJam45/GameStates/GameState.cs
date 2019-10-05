@@ -9,11 +9,13 @@ namespace LDJam45
     class GameState : GameObject
     {
         protected List<GameObject> actors;
-        protected SpriteFont font;
+        protected Word currentWord;
         //protected Ball ball;
+
+        protected SpriteFont font;
         protected ParticleGenerator pg;
 
-        Letter letter;
+        //Letter letter;
 
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
@@ -27,27 +29,34 @@ namespace LDJam45
             pg = ParticleGenerator.GetInstance(_graphicsDevice);
         }
 
-        public override void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager contentManager)
         {
             // Font
-            font = content.Load<SpriteFont>("Fonts/Joystix_32");
+            font = contentManager.Load<SpriteFont>("Fonts/Joystix_32");
             // CHECK COLOR CHANGE
             //font.Texture.GetData<>();
 
             // TEST letter
             //letter = new Letter(_graphicsDevice, 'A', font);
-            //letter.LoadContent(content);
+            //letter.LoadContent(contentManager);
+
+            //Test Word
+            currentWord = new Word(_graphicsDevice, "OUI", font);
+            currentWord.LoadContent(contentManager);
 
         }
 
         public override void UnloadContent()
         {
+            currentWord.UnloadContent();
             pg.UnloadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
+
+            currentWord.Update(gameTime);
 
             // TEST letter
             //letter.Update(gameTime);
@@ -58,6 +67,7 @@ namespace LDJam45
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            currentWord.Draw(spriteBatch);
             // TEST letter
             //letter.Draw(spriteBatch);
 

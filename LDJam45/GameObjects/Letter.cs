@@ -11,6 +11,9 @@ namespace LDJam45
         public string letter { get; }
         public Vector2 position;
 
+        public int squareSize = 40;
+        public int squareMargin = 6;
+
         private float rotation;
         private float rotationSpeed;
         private double cooldown = 1.0;
@@ -19,8 +22,6 @@ namespace LDJam45
         private SpriteFont font;
 
         private Texture2D squareText;
-        private int squareSize = 40;
-        private int squareMargin = 6;
         private Vector2 squareOrigin;
 
         private Color letterColor = Color.Black;
