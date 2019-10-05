@@ -29,7 +29,7 @@ namespace LDJam45
         private Color marginColor = Color.Maroon;
         private Color backColor = Color.AntiqueWhite;
 
-        public Letter(GraphicsDeviceManager graphicsDevice, char letter,SpriteFont font) : base(graphicsDevice)
+        public Letter(GraphicsDeviceManager graphicsDevice, char letter, SpriteFont font) : base(graphicsDevice)
         {
             this.letter = letter.ToString().ToUpper();
 

@@ -18,6 +18,11 @@ namespace LDJam45
 
             // Level 1 : NOTHING
             Level nothing = CreateLevel("NOTHING");
+            nothing.Add(0, "Welcome to the army soldiers !");
+            nothing.Add(0, "Today you will fight our \n worst enemy : Numbers");
+            nothing.Add(0, "We, Letters, will not let \n    them go through !");
+            nothing.Add(0, "Each of you will help stopping them,");
+            nothing.Add(0, "Let's start with nothing");
             nothing.Add(1, 1, 0, 100, 1);
             nothing.Add(1, 1, 0, 100, 6);
             nothing.Add(2, 2, 0, 100, 2);
@@ -84,6 +89,11 @@ namespace LDJam45
         public void Add(float time, int number, int decim, int speed, int line)
         {
             events.Add(new Event(time, number, decim, speed, line));
+        }
+
+        public void Add(float time, string text)
+        {
+            events.Add(new Event(time, text));
         }
 
         public Event GetNextEvent()

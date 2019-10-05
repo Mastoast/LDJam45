@@ -46,6 +46,10 @@ namespace LDJam45
             // Font
             font = contentManager.Load<SpriteFont>("Fonts/Joystix_32");
 
+            // Create text balloon
+            balloon = new TextBalloon(_graphicsDevice, font);
+            balloon.LoadContent(contentManager);
+
             // Save content manager for level initialization
             this.contentManager = contentManager;
 
@@ -73,13 +77,17 @@ namespace LDJam45
         public override void UnloadContent()
         {
             currentWord.UnloadContent();
+            balloon.UnloadContent();
             pg.UnloadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
-            
+
+            //Balloon
+            balloon.Update(gameTime);
+
             // Current Word
             currentWord.Update(gameTime);
 
@@ -178,16 +186,11 @@ namespace LDJam45
                 }
                 if (nextEvent.text != "")
                 {
-                    // print event
-                    Print(nextEvent.text, 10f);
+                    // Print event
+                    balloon.SetText(nextEvent.text, 10f);
                 }
                 nextEvent = currentLevel.GetNextEvent();
             }
-        }
-
-        public void Print(string text, float duration)
-        {
-            // TODO Make prints
         }
 
         public void Hurt(int amount)
@@ -216,6 +219,9 @@ namespace LDJam45
         {
             // Current word
             currentWord.Draw(spriteBatch);
+
+            //Balloon
+            balloon.Draw(spriteBatch);
 
             // Bullets
             foreach (var item in bullets)
