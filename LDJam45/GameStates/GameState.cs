@@ -8,14 +8,14 @@ namespace LDJam45
 {
     class GameState : GameObject
     {
-        protected List<GameObject> actors;
+        protected List<GameObject> numbers;
         protected Word currentWord;
-        //protected Ball ball;
 
         protected SpriteFont font;
         protected ParticleGenerator pg;
 
         //Letter letter;
+        Number number;
 
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
@@ -23,7 +23,8 @@ namespace LDJam45
 
         public override void Initialize()
         {
-            actors = new List<GameObject>();
+            // Numbers list
+            numbers = new List<GameObject>();
 
             // Particle generator
             pg = ParticleGenerator.GetInstance(_graphicsDevice);
@@ -33,12 +34,11 @@ namespace LDJam45
         {
             // Font
             font = contentManager.Load<SpriteFont>("Fonts/Joystix_32");
-            // CHECK COLOR CHANGE
-            //font.Texture.GetData<>();
 
-            // TEST letter
-            //letter = new Letter(_graphicsDevice, 'A', font);
-            //letter.LoadContent(contentManager);
+            //Test Number
+            number = new Number(_graphicsDevice, 152, 8,
+                new Vector2(_graphicsDevice.PreferredBackBufferWidth, 100), 100, font);
+            numbers.Add(number);
 
             //Test Word
             currentWord = new Word(_graphicsDevice, "NOTHING", font);
@@ -56,10 +56,14 @@ namespace LDJam45
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
 
+            // Current Word
             currentWord.Update(gameTime);
 
-            // TEST letter
-            //letter.Update(gameTime);
+            // Numbers
+            foreach (var item in numbers)
+            {
+                item.Update(gameTime);
+            }
 
             // pg
             pg.Update(gameTime);
@@ -67,12 +71,29 @@ namespace LDJam45
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            // Current word
             currentWord.Draw(spriteBatch);
-            // TEST letter
-            //letter.Draw(spriteBatch);
+
+            // Numbers
+            foreach (var item in numbers)
+            {
+                item.Draw(spriteBatch);
+            }
 
             // Pg
             pg.Draw(spriteBatch);
         }
     }
 }
+
+// Debug
+/*
+var debugText = timeBeforeShot;
+spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500,500),
+Color.Black);
+var kstate = Keyboard.GetState();
+if (kstate.IsKeyDown(Keys.Up))
+{
+
+}
+*/

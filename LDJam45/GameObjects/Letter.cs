@@ -118,10 +118,6 @@ namespace LDJam45
             // Font
             Vector2 middlePoint = font.MeasureString(letter) / 2;
             spriteBatch.DrawString(font, letter, this.position, letterColor, 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
-
-            // Debug
-            var debugText = timeBeforeShot;
-            //spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500,500), letterColor, 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
         }
     }
 }
