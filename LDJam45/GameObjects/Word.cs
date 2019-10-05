@@ -97,7 +97,6 @@ namespace LDJam45
 
         public float GetLineHeight(int line)
         {
-            Console.WriteLine(length);
             int squareSize = Letter.squareSize + Letter.squareMargin;
             return lettersOffset + (squareSize * ((line % (length + 1)) - 1))
                 + (spaceMargin * ((line % (length + 1)) - 1)) - (squareSize / 2);

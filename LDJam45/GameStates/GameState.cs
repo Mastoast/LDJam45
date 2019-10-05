@@ -56,7 +56,6 @@ namespace LDJam45
 
         public void StartLevel(GameTime gameTime)
         {
-            Console.WriteLine("START LEVEL");
             // Unload the old word
             if (currentWord != null)
                 currentWord.UnloadContent();
@@ -189,7 +188,6 @@ namespace LDJam45
         public void Print(string text, float duration)
         {
             // TODO Make prints
-            Console.WriteLine(text);
         }
 
         public void Hurt(int amount)

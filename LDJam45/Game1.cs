@@ -10,6 +10,7 @@ namespace LDJam45
         private SpriteBatch spriteBatch;
 
         private State currentState;
+        private Color backgroundColor;
 
         public Game1()
         {
@@ -28,6 +29,8 @@ namespace LDJam45
         protected override void Initialize()
         {
             currentState.Initialize();
+
+            backgroundColor = new Color(0.8f, 0.8f, 0.75f);
 
             base.Initialize();
         }
@@ -67,7 +70,7 @@ namespace LDJam45
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(backgroundColor);
 
             // begin
             spriteBatch.Begin();

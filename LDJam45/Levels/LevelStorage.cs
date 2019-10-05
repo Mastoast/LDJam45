@@ -20,7 +20,7 @@ namespace LDJam45
             Level nothing = CreateLevel("NOTHING");
             nothing.Add(1, 1, 0, 100, 1);
             nothing.Add(1, 1, 0, 100, 6);
-            /*nothing.Add(2, 2, 0, 100, 2);
+            nothing.Add(2, 2, 0, 100, 2);
             nothing.Add(3, 3, 0, 100, 3);
             nothing.Add(4, 4, 0, 100, 4);
             nothing.Add(5, 5, 0, 100, 5);
@@ -34,7 +34,7 @@ namespace LDJam45
             nothing.Add(11, 3, 0, 100, 3);
             nothing.Add(12, 2, 0, 100, 2);
             nothing.Add(13, 1, 0, 100, 1);
-            nothing.Add(13, 1, 0, 100, 6);*/
+            nothing.Add(13, 1, 0, 100, 6);
 
             // Level 2 : IS
             Level est = CreateLevel("IS");
