@@ -19,11 +19,11 @@ namespace LDJam45
         private double cooldown = 0.0;
         private double timeBeforeShot = 0.0;
         private bool lastPressed = true;
-        private SpriteFont font;
 
         private Texture2D squareText;
         private Vector2 squareOrigin;
 
+        private SpriteFont font;
         private Color letterColor = Color.Black;
         private Color marginColor = Color.Maroon;
         private Color backColor = Color.AntiqueWhite;
