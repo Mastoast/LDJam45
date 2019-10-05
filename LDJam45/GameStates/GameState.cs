@@ -9,6 +9,7 @@ namespace LDJam45
     class GameState : GameObject
     {
         protected List<GameObject> actors;
+        protected SpriteFont font;
         //protected Ball ball;
         protected ParticleGenerator pg;
 
@@ -33,6 +34,9 @@ namespace LDJam45
             // ball
             //ball.LoadContent(content);
 
+            // Font
+            font = content.Load<SpriteFont>("Fonts/Joystix");
+
         }
 
         public override void UnloadContent()
@@ -50,6 +54,12 @@ namespace LDJam45
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            // Font
+            string text = "test";
+            Vector2 middlePoint = font.MeasureString(text)/2;
+            Vector2 position = new Vector2(_graphicsDevice.PreferredBackBufferWidth / 2, _graphicsDevice.PreferredBackBufferHeight / 2);
+            spriteBatch.DrawString(font, text, position, Color.White, 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+
             // Pg
             pg.Draw(spriteBatch);
         }

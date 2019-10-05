@@ -15,8 +15,8 @@ namespace LDJam45
         {
             graphics = new GraphicsDeviceManager(this)
             {
-                PreferredBackBufferHeight = 400,
-                PreferredBackBufferWidth = 400
+                PreferredBackBufferWidth = 1280,
+                PreferredBackBufferHeight = 720
             };
             Content.RootDirectory = "Content";
 
