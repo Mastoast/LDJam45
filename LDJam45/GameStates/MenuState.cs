@@ -35,11 +35,14 @@ namespace LDJam45
 
             for (int i = 0; i < stringCount; i++)
             {
-                Letter newLetter = new Letter(_graphicsDevice, word[i], font);
-                // place the letters at the center of the height
-                newLetter.position = new Vector2(lettersOffset + (squareSize * i) + (spaceMargin * i),
-                    upPosition);
-                letters.Add(newLetter);
+                if ((word[i] >= 'A' && word[i] <= 'Z') || (word[i] >= 'a' && word[i] <= 'z'))
+                {
+                    Letter newLetter = new Letter(_graphicsDevice, word[i], font);
+                    // place the letters at the center of the height
+                    newLetter.position = new Vector2(lettersOffset + (squareSize * i) + (spaceMargin * i),
+                        upPosition);
+                    letters.Add(newLetter);
+                }
             }
         }
 

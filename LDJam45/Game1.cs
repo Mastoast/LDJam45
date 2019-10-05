@@ -21,7 +21,7 @@ namespace LDJam45
             Content.RootDirectory = "Content";
 
             // First state
-            currentState = new Menustate(graphics);
+            currentState = new GameState(graphics);
             currentState.SetGame(this);
         }
 
