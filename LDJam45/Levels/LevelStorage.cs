@@ -6,9 +6,12 @@ namespace LDJam45
     public static class LevelStorage
     {
         public static List<Level> levels;
+        public static bool generated = false;
 
         public static void GenerateLevels()
         {
+            generated = true;
+
             // Init
             levels = new List<Level>();
 
@@ -26,8 +29,10 @@ namespace LDJam45
 
         public static Level GetNextLevel()
         {
+            if (levels.Count == 0)
+                return new Level(""); // No more events
             Level nextLvl = levels[0];
-            levels.Remove(nextLvl);
+            levels.RemoveAt(0);
             return nextLvl;
         }
     }
@@ -35,17 +40,26 @@ namespace LDJam45
     public struct Level
     {
         public string word;
-        public List<Event> spawns;
+        public List<Event> events;
 
         public Level(string word)
         {
             this.word = word;
-            spawns = new List<Event>();
+            events = new List<Event>();
         }
 
         public void Add(float time, int number, int decim, int speed, int line)
         {
-            spawns.Add(new Event(time, number, decim, speed, line));
+            events.Add(new Event(time, number, decim, speed, line));
+        }
+
+        public Event GetNextEvent()
+        {
+            if (events.Count == 0)
+                return new Event(0, ""); // No more events
+            Event nextEvent = events[0];
+            events.RemoveAt(0);
+            return nextEvent;
         }
     }
 

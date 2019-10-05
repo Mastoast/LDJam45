@@ -15,9 +15,12 @@ namespace LDJam45
         protected Word currentWord;
         protected Level currentLevel;
         protected List<Number> numbers;
+        protected Event nextEvent;
+        protected TextBalloon balloon;
 
         protected SpriteFont font;
         protected ParticleGenerator pg;
+        private ContentManager contentManager;
 
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
@@ -33,9 +36,9 @@ namespace LDJam45
             // Particle generator
             pg = ParticleGenerator.GetInstance(_graphicsDevice);
 
-            // Get levels
-            LevelStorage.GenerateLevels();
-            currentLevel = LevelStorage.GetNextLevel();
+            // Load levels only if not already started
+            if (!LevelStorage.generated)
+                LevelStorage.GenerateLevels();
         }
 
         public override void LoadContent(ContentManager contentManager)
@@ -43,12 +46,27 @@ namespace LDJam45
             // Font
             font = contentManager.Load<SpriteFont>("Fonts/Joystix_32");
 
-            //Test Word
-            currentWord = new Word(_graphicsDevice, "IMPOSSIBLE", font);
-            currentWord.LoadContent(contentManager);
+            // Save content manager for level initialization
+            this.contentManager = contentManager;
 
-            //Test Number
-            SpawnNumber(152, 8, 100, 1);
+            //  Start the first Word
+            currentLevel = LevelStorage.GetNextLevel();
+            StartLevel();
+
+        }
+
+        public void StartLevel()
+        {
+            Console.WriteLine("START LEVEL");
+            // Unload the old word
+            if (currentWord != null)
+                currentWord.UnloadContent();
+            // Create the new word
+            currentWord = new Word(_graphicsDevice, currentLevel.word, font);
+            currentWord.Initialize();
+            currentWord.LoadContent(contentManager);
+            // Start first event
+            nextEvent = currentLevel.GetNextEvent();
         }
 
         public override void UnloadContent()
@@ -120,8 +138,56 @@ namespace LDJam45
                     }
             }
 
-            // pg
+            // Handle events
+            HandleEvent(gameTime);
+
+            // Particle Generator
             pg.Update(gameTime);
+        }
+
+        public void HandleEvent(GameTime gameTime)
+        {
+            // End of the level
+            if (nextEvent.time == 0 && nextEvent.text == "")
+            {
+                if (numbers.Count != 0)
+                    return; // wait for all numbers to disapear
+                currentLevel = LevelStorage.GetNextLevel();
+                // End of the game
+                if (currentLevel.word.Equals(""))
+                {
+                    SetWin();
+                    return;
+                }
+                StartLevel();
+                return;
+            }
+            // Handle next event
+            if (nextEvent.time <= gameTime.TotalGameTime.TotalSeconds)
+            {
+                if (nextEvent.line != 0)
+                {
+                    // spawn event
+                    SpawnNumber(nextEvent.number, nextEvent.decim, nextEvent.speed, nextEvent.line);
+                    //
+                    //float lineHeight = currentWord.GetLineHeight(nextEvent.line);
+                    //Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
+                    //numbers.Add(new Number(_graphicsDevice, nextEvent.number, nextEvent.decim,
+                    //    spawnPosition, nextEvent.speed, font));
+                }
+                if (nextEvent.text != "")
+                {
+                    // print event
+                    Print(nextEvent.text, 10f);
+                }
+                nextEvent = currentLevel.GetNextEvent();
+            }
+        }
+
+        public void Print(string text, float duration)
+        {
+            // TODO Make prints
+            Console.WriteLine(text);
         }
 
         public void Hurt(int amount)
@@ -134,34 +200,16 @@ namespace LDJam45
             }
         }
 
+        public void SetWin()
+        {
+            //TODO WINState
+        }
+
         public void SpawnNumber(int number, int decim, int speed, int line)
         {
             float lineHeight = currentWord.GetLineHeight(line);
             Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
             numbers.Add(new Number(_graphicsDevice, number, decim, spawnPosition, speed, font));
-        }
-
-        public void SpawnNumber(Event @event)
-        {
-            if (@event.line != 0)
-            {
-                // spawn event
-                float lineHeight = currentWord.GetLineHeight(@event.line);
-                Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
-                numbers.Add(new Number(_graphicsDevice, @event.number, @event.decim, spawnPosition, @event.speed, font));
-
-            }
-
-            if (@event.text != "")
-            {
-                // print event
-                Print(@event.text);
-            }
-        }
-
-        public void Print(string text)
-        {
-            // TODO Make prints
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -184,7 +232,7 @@ namespace LDJam45
             // Health
             // TODO Draw health
 
-            // Pg
+            // Particle Generator
             pg.Draw(spriteBatch);
         }
     }
