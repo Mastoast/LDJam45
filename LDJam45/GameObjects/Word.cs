@@ -97,8 +97,8 @@ namespace LDJam45
         public float GetLineHeight(int line)
         {
             int squareSize = Letter.squareSize + Letter.squareMargin * 2;
-            return lettersOffset + (squareSize * (line - 1))
-                + (spaceMargin * (line - 1)) - (squareSize / 2);
+            return lettersOffset + (squareSize * (line % length - 1))
+                + (spaceMargin * (line % length - 1)) - (squareSize / 2);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

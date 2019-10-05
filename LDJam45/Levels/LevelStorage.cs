@@ -16,15 +16,43 @@ namespace LDJam45
             levels = new List<Level>();
 
             // Level 1 : NOTHING
-            Level nothing = new Level("NOTHING");
-            levels.Add(nothing);
+            Level nothing = CreateLevel("NOTHING");
             nothing.Add(1, 1, 0, 100, 1);
             nothing.Add(2, 2, 0, 100, 2);
             nothing.Add(3, 3, 0, 100, 3);
+            nothing.Add(4, 4, 0, 100, 4);
+            nothing.Add(5, 5, 0, 100, 5);
+            nothing.Add(6, 6, 0, 100, 6);
+            nothing.Add(7, 7, 0, 100, 7);
+            nothing.Add(6, 6, 0, 100, 6);
+            nothing.Add(5, 5, 0, 100, 5);
+            nothing.Add(4, 4, 0, 100, 4);
+            nothing.Add(3, 3, 0, 100, 3);
+            nothing.Add(2, 2, 0, 100, 2);
+            nothing.Add(1, 1, 0, 100, 1);
 
             // Level 2 : IS
+            Level est = CreateLevel("IS");
+            est.Add(1, 1, 0, 100, 1);
+            est.Add(2, 1, 0, 100, 4);
+            est.Add(3, 1, 0, 100, 1);
+            est.Add(4, 1, 0, 100, 8);
+            est.Add(5, 1, 0, 100, 1);
 
             //Level 3 : IMPOSSIBLE
+            Level impossible = CreateLevel("IMPOSSIBLE");
+            impossible.Add(1, 1, 0, 100, 1);
+            impossible.Add(2, 1, 0, 100, 1);
+            impossible.Add(3, 1, 0, 100, 1);
+            impossible.Add(4, 1, 0, 100, 1);
+            impossible.Add(5, 1, 0, 100, 1);
+        }
+
+        private static Level CreateLevel(string word)
+        {
+            Level lvl = new Level(word);
+            levels.Add(lvl);
+            return lvl;
         }
 
         public static Level GetNextLevel()
