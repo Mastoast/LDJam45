@@ -89,11 +89,6 @@ namespace LDJam45
                 Vector2 decimalPosition = new Vector2(position.X + numOffset + dotOffset, position.Y);
                 spriteBatch.DrawString(font, decim.ToString(), decimalPosition, decimalColor);
             }
-
-            // Debug
-            var debugText = position;
-            spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500,500), Color.Black);
-
         }
     }
 }

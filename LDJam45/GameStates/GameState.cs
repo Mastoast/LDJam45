@@ -48,7 +48,7 @@ namespace LDJam45
 
             //Test Number
             number = new Number(_graphicsDevice, 152, 8,
-                new Vector2(_graphicsDevice.PreferredBackBufferWidth, 100), 100, font);
+                new Vector2(_graphicsDevice.PreferredBackBufferWidth, 150), 100, font);
             numbers.Add(number);
 
             //Test Word
@@ -74,44 +74,43 @@ namespace LDJam45
             // list of bullets
             for (int i = bullets.Count - 1; i >= 0; i--)
             {
-                // check if still exists
-                if (bullets[i] == null)
+                // Check out of screen
+                if (bullets[i].position.X >= _graphicsDevice.PreferredBackBufferWidth)
+                {
+                    // TODO loose score
                     bullets.RemoveAt(i);
+                }
                 else
                 {
-                    // Check out of screen
-                    if (bullets[i].position.X >= _graphicsDevice.PreferredBackBufferWidth)
+                    bool alive = true;
+                    // collision with numbers
+                    for (int j = numbers.Count - 1; j >= 0; j--)
                     {
-                        // TODO loose score
-                        bullets.RemoveAt(i);
-                    }
-                    else
-                    {
-                        // collision with numbers
-                        for (int j = numbers.Count - 1; j >= 0; j--)
+                        if (bullets[i].GetRectangle().Intersects(numbers[j].GetRectangle()))
                         {
-                            if (bullets[i].GetRectangle().Intersects(numbers[j].GetRectangle()))
+                            int decim = numbers[j].Hit();
+                            if (decim != 0)
                             {
-                                int decim = numbers[j].Hit();
-                                // TODO
+                                // TODO split decimal
                             }
+                            numbers.RemoveAt(j);
+                            bullets.RemoveAt(i);
+                            alive = false;
+                            // TODO ADD SCORE
+                            break;
                         }
-
-                        // Update number
-                        bullets[i].Update(gameTime);
                     }
+
+                    // Update number
+                    if (alive)
+                        bullets[i].Update(gameTime);
                 }
             }
 
             // Numbers
-            // list of bullets
+            // list of numbers
             for (int i = numbers.Count - 1; i >= 0; i--)
             {
-                // check if still exists
-                if (numbers[i] == null)
-                    numbers.RemoveAt(i);
-                else
-                {
                     // Check collisions
                     if (numbers[i].position.X <= (currentWord.leftPosition + Letter.squareSize))
                     {
@@ -123,7 +122,6 @@ namespace LDJam45
                         // Update number
                         numbers[i].Update(gameTime);
                     }
-                }
             }
 
             // pg
