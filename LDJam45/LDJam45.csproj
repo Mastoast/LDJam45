@@ -50,7 +50,6 @@
     <Compile Include="GameObjects\Operation.cs" />
     <Compile Include="GameObjects\ParticuleGenerator.cs" />
     <Compile Include="GameObjects\TextBalloon.cs" />
-    <Compile Include="GameObjects\WaitingLogo.cs" />
     <Compile Include="GameObjects\Word.cs" />
     <Compile Include="GameStates\GameOverState.cs" />
     <Compile Include="GameStates\GameState.cs" />

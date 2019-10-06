@@ -47,30 +47,31 @@ namespace LDJam45
         // define the particle struct
         public class Particle
         {
+            public static float nLife;
             public int x, y, size;
-            public float speed, lifetime;
+            public float lifetime;
             public Vector2 direction;
+            public float speed = 2f;
 
-            public Particle(int x, int y, int size, float speed, Vector2 direction)
+            public Particle(int x, int y, int size, Vector2 direction)
             {
                 this.x = x;
                 this.y = y;
                 this.size = size;
-                this.speed = speed;
                 this.direction = direction;
                 this.lifetime = 0;
+                Particle.nLife = 5f;
             }
         }
 
-        public void SpawnParticles(int x, int y, int size, int number, float speed)
+        public void SpawnParticles(int x, int y, int size, int number)
         {
             Random rd = new Random();
             for (int i = 0; i < number; i++)
             {
                 double angle = rd.NextDouble() * 2f * MathHelper.Pi;
                 Vector2 direction = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
-                direction.Normalize();
-                Particle newParticle = new Particle(x, y, size, speed, direction);
+                Particle newParticle = new Particle(x, y, size, direction);
                 particles.Add(newParticle);
             }
         }
@@ -83,18 +84,22 @@ namespace LDJam45
         public void Update(GameTime gameTime)
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
+            float gravity = 0.1f;
 
             for (int i = 0; i < particles.Count; i++)
             {
-                if (particles[i].lifetime > 0.6f)
+                if (particles[i].lifetime > Particle.nLife)
                 {
                     particles.RemoveAt(i);
                     i--;
                 }
                 else
                 {
-                    particles[i].x += (int)(particles[i].speed * particles[i].direction.X * delta);
-                    particles[i].y += (int)(particles[i].speed * particles[i].direction.Y * delta);
+                    // Gravity
+                    particles[i].direction.Y += (gravity);
+
+                    particles[i].x += (int)(particles[i].speed * particles[i].direction.X);
+                    particles[i].y += (int)(particles[i].speed * particles[i].direction.Y);
                     particles[i].lifetime += (float)delta;
                 }
             }

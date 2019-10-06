@@ -154,8 +154,8 @@ namespace LDJam45
                             if (decim != -1)
                             {
                                 // SPawn particle
-                                pg.SpawnParticles((int)bullets[i].position.X,
-                                    (int)bullets[i].position.Y, 4, 20, 100f);
+                                //pg.SpawnParticles((int)bullets[i].position.X,
+                                //canceled    (int)bullets[i].position.Y, 2, 7);
                                 // Split decimal
                                 SpawnDecimal(decim, numbers[j].speed, numbers[j].position.X);
                                 numbers.RemoveAt(j);
