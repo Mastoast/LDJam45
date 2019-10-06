@@ -9,7 +9,7 @@ namespace LDJam45
     {
         public int number;
         public Vector2 position;
-        public int damage = 10;
+        public int damage = 20;
 
         public int decim;
         public int speed;

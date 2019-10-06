@@ -46,7 +46,7 @@ namespace LDJam45
             position = Vector2.Zero;
 
             backNormalColor = new Color(0.9f, 0.9f, 0.9f);
-            backCdColor = new Color(0.2f, 0.2f, 0.2f);
+            backCdColor = new Color(0.5f, 0.2f, 0.2f);
             backColor = backNormalColor;
         }
 
@@ -143,7 +143,7 @@ namespace LDJam45
         public void DrawAtPosition(SpriteBatch spriteBatch, Vector2 position)
         {
             float scaleFactor = (float)(timeBeforeShot / cooldown);
-            float scale = 1f + scaleFactor;
+            float scale = 1f + scaleFactor/2;
 
             // Square Texture
             // margin
