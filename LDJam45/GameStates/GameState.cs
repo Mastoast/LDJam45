@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LDJam45
 {
@@ -17,6 +18,9 @@ namespace LDJam45
         protected List<Number> numbers;
         protected Event nextEvent;
         protected TextBalloon balloon;
+
+        protected SoundEffect hitSfx;
+        protected SoundEffectInstance hitSfxInst;
 
         protected SpriteFont font;
         protected ParticleGenerator pg;
@@ -55,8 +59,12 @@ namespace LDJam45
             balloon = new TextBalloon(_graphicsDevice, font);
             balloon.LoadContent(contentManager);
 
-            // Save content manager for level initialization
+            // Save content manager for in game initialization
             this.contentManager = contentManager;
+
+            // load sfx
+            hitSfx = contentManager.Load<SoundEffect>("Sounds/hit");
+            hitSfxInst = hitSfx.CreateInstance();
 
             //  Start the first Word
             if (LevelStorage.currentLevel == -1)
@@ -217,10 +225,13 @@ namespace LDJam45
         public void Hurt(int amount)
         {
             health -= amount;
+            // sfx
+            hitSfxInst.Stop();
+            hitSfxInst.Play();
             // Game Over
             if (health <= 0)
             {
-                this.game.SetState(new GameOverState(_graphicsDevice));
+                game.SetState(new GameOverState(_graphicsDevice));
             }
         }
 
@@ -250,7 +261,10 @@ namespace LDJam45
         {
             float lineHeight = currentWord.GetLineHeight(line);
             Vector2 spawnPosition = new Vector2(xPos, lineHeight);
-            numbers.Add(new Number(_graphicsDevice, number, decim, spawnPosition, speed, font));
+
+            Number newNumber = new Number(_graphicsDevice, number, decim, spawnPosition, speed, font);
+            newNumber.LoadContent(contentManager);
+            numbers.Add(newNumber);
         }
 
         /*

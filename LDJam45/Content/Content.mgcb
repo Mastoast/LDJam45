@@ -20,3 +20,27 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/joystix.spritefont;Fonts/joystix_32.spritefont
 
+#begin Sounds/explosion1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion1.wav;Sounds/numHit.wav
+
+#begin Sounds/hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/hit.wav
+
+#begin Sounds/loose.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/loose.wav
+
+#begin Sounds/press.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/press.wav
+

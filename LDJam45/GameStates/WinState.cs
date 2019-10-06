@@ -39,12 +39,14 @@ namespace LDJam45
                 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
 
             // 2nd Message
+            /*
             text = "Press space to try it";
             mPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth / 2,
                 _graphicsDevice.PreferredBackBufferHeight / 2 + 250);
             middlePoint = font.MeasureString(text) / 2;
             spriteBatch.DrawString(font, text, mPosition, Color.Black,
                 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+            */
         }
     }
 }

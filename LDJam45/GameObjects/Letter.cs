@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LDJam45
 {
@@ -24,6 +23,9 @@ namespace LDJam45
         private Texture2D squareText;
         private Vector2 squareOrigin;
         private SpriteFont font;
+
+        private SoundEffect pressSfx;
+        private SoundEffectInstance pressSfxInst;
 
         private Color letterColor = Color.Black;
         private Color marginColor = Color.Maroon;
@@ -55,6 +57,10 @@ namespace LDJam45
             squareText = new Texture2D(_graphicsDevice.GraphicsDevice, 1, 1);
             squareText.SetData(new[] { Color.White });
             squareOrigin = new Vector2(squareText.Height / 2f, squareText.Width / 2f);
+
+            // load sfx
+            pressSfx = content.Load<SoundEffect>("Sounds/press");
+            pressSfxInst = pressSfx.CreateInstance();
         }
 
         public override void UnloadContent()
@@ -94,12 +100,15 @@ namespace LDJam45
                 // Only if new press
                 if (!lastPressed)
                 {
-                    // Shoot
                     if (timeBeforeShot == 0.0)
                     {
-                        this.Shoot();
+                        // Shoot
+                        Shoot();
                         timeBeforeShot = cooldown;
                         backColor = backCdColor;
+                        // Play sfx
+                        pressSfxInst.Stop();
+                        pressSfxInst.Play();
                     }
                 }
                 lastPressed = true;

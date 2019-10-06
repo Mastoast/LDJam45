@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -13,6 +14,9 @@ namespace LDJam45
         private State currentState;
         private Color backgroundColor;
 
+        protected SoundEffect looseSfx;
+        protected SoundEffectInstance looseSfxInst;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this)
@@ -24,6 +28,7 @@ namespace LDJam45
 
             // First state
             currentState = new GameState(graphics);
+            // TODO currentState = new MenuState(graphics);
             currentState.SetGame(this);
         }
 
@@ -41,11 +46,16 @@ namespace LDJam45
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            // Sfx
+            looseSfx = Content.Load<SoundEffect>("Sounds/loose");
+            looseSfxInst = looseSfx.CreateInstance();
+
             currentState.LoadContent(Content);
         }
 
         protected override void UnloadContent()
         {
+            //State
             currentState.UnloadContent();
         }
 
@@ -61,7 +71,6 @@ namespace LDJam45
 
         public void SetState(State newState)
         {
-            Console.WriteLine("oui");
             // Unload old scene
             currentState.UnloadContent();
             // Init new scene
@@ -69,6 +78,9 @@ namespace LDJam45
             currentState.SetGame(this);
             currentState.Initialize();
             currentState.LoadContent(Content);
+
+            // Play sound
+            looseSfx.Play();
         }
 
         protected override void Draw(GameTime gameTime)

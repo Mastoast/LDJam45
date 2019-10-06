@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace LDJam45
 {
@@ -14,6 +15,10 @@ namespace LDJam45
         public int speed;
 
         private SpriteFont font;
+
+        private SoundEffect hitSfx;
+        private SoundEffectInstance hitSfxInst;
+
         private Color numberColor = Color.Green;
         private Color decimalColor = Color.Red;
         private Color dotColor = Color.Black;
@@ -25,6 +30,7 @@ namespace LDJam45
             this.decim = decim;
             this.position = position;
             this.speed = speed;
+            Initialize();
         }
 
         public override void Initialize()
@@ -33,6 +39,8 @@ namespace LDJam45
 
         public override void LoadContent(ContentManager content)
         {
+            hitSfx = content.Load<SoundEffect>("Sounds/numHit");
+            hitSfxInst = hitSfx.CreateInstance();
         }
 
         public override void UnloadContent()
@@ -47,7 +55,11 @@ namespace LDJam45
 
         public int Hit()
         {
-            // TODO Play hit sound
+            // Play hit sound
+            hitSfxInst.Stop();
+            hitSfxInst.Play();
+
+            // Loose digit
             string sNum = number.ToString();
             if (sNum.Length > 1)
             {
