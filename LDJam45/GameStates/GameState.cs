@@ -26,6 +26,9 @@ namespace LDJam45
         protected ParticleGenerator pg;
         private ContentManager contentManager;
 
+        private Texture2D rectTexture;
+        private Vector2 rectOrigin;
+
         private double freezeTime;
         private bool frozen = false;
 
@@ -54,6 +57,11 @@ namespace LDJam45
         {
             // Font
             font = contentManager.Load<SpriteFont>("Fonts/Joystix_32");
+
+            // create rect texture
+            rectTexture = new Texture2D(_graphicsDevice.GraphicsDevice, 1, 1);
+            rectTexture.SetData(new[] { Color.White });
+            rectOrigin = new Vector2(rectTexture.Height / 2f, rectTexture.Width / 2f);
 
             // Create text balloon
             balloon = new TextBalloon(_graphicsDevice, font);
@@ -93,6 +101,7 @@ namespace LDJam45
 
         public override void UnloadContent()
         {
+            rectTexture.Dispose();
             currentWord.UnloadContent();
             balloon.UnloadContent();
             pg.UnloadContent();
@@ -272,12 +281,6 @@ namespace LDJam45
         */
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //DEBUG
-            var debugText = health.ToString();
-            spriteBatch.DrawString(font, debugText.ToString(), new Vector2(0, 650),
-            Color.Black);
-            //DEBUG
-
             // Current word
             currentWord.Draw(spriteBatch);
 
@@ -297,10 +300,22 @@ namespace LDJam45
             }
 
             // Health
-            // TODO Draw health
+            DrawHealthBar(spriteBatch);
 
             // Particle Generator
             pg.Draw(spriteBatch);
+        }
+
+        public void DrawHealthBar(SpriteBatch spriteBatch)
+        {
+            int x = currentWord.leftPosition;
+            int y = _graphicsDevice.PreferredBackBufferHeight - 60;
+            int width = (int)(health * 11);
+            int height = 50;
+            Color color = new Color(0.4f, 0.1f, 0.1f);
+            Rectangle position = new Rectangle(x, y, width, height);
+            spriteBatch.Draw(rectTexture, position, null, color,
+                0f, Vector2.Zero, SpriteEffects.None, 0f);
         }
     }
 }

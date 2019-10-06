@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace LDJam45
@@ -104,7 +104,10 @@ namespace LDJam45
 
             // Switch state when all keys are pressed
             if (allPressed)
+            {
+                gameTime.TotalGameTime = TimeSpan.Zero;
                 NextState();
+            }
         }
 
         public virtual void NextState()

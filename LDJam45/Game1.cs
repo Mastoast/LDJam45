@@ -19,11 +19,15 @@ namespace LDJam45
 
         public Game1()
         {
+            // Game title
+            Window.Title = "Words against Numbers";
+
             graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = 1280,
                 PreferredBackBufferHeight = 720
             };
+
             Content.RootDirectory = "Content";
 
             // First state

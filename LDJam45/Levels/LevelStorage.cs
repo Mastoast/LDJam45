@@ -6,7 +6,7 @@ namespace LDJam45
     public static class LevelStorage
     {
         public static List<Level> levels;
-        public static int currentLevel = 1;
+        public static int currentLevel = 3;
         public static int currentEvent = -1;
         public static bool generated = false;
 
@@ -76,7 +76,7 @@ namespace LDJam45
         public static Level GetNextLevel()
         {
             // End of level
-            if (currentLevel == levels.Count)
+            if (currentLevel == levels.Count -1)
                 return new Level(""); // No more events;
             currentLevel += 1;
             currentEvent = -1;
