@@ -93,22 +93,6 @@ namespace LDJam45
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Is SpaceBar pressed
-            var kstate = Keyboard.GetState();
-            if (kstate.IsKeyDown(Keys.Space))
-            {
-                // Only if new press
-                if (!lastPressed)
-                {
-                    NextState();
-                }
-                lastPressed = true;
-            }
-            else
-            {
-                lastPressed = false;
-            }
-
             // Update letters
             bool allPressed = true;
             foreach (var item in letters)

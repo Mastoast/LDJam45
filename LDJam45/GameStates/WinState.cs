@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LDJam45
 {
-    public class WinState : GameOverState
+    public class WinState : MenuState
     {
         public WinState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
@@ -14,6 +14,18 @@ namespace LDJam45
         public override void NextState()
         {
             this.game.SetState(new MenuState(_graphicsDevice));
+        }
+
+        public override void AddLetters(ContentManager contentManager)
+        {
+            // Place word on screen
+            PlaceWord(centralWord, 0);
+
+            // Load Letters
+            foreach (var item in letters)
+            {
+                item.LoadContent(contentManager);
+            }
         }
 
         public override void AdditionnalDraw(SpriteBatch spriteBatch)
