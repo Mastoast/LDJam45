@@ -11,9 +11,11 @@ namespace LDJam45
             centralWord = "THANKS FOR PLAYING";
         }
 
-        public override void NextState()
+        public override void NextState(GameTime gameTime)
         {
-            this.game.SetState(new MenuState(_graphicsDevice));
+            GameState bonusState = new GameState(_graphicsDevice);
+            bonusState.SwitchtoBonus(gameTime);
+            this.game.SetState(bonusState);
         }
 
         public override void AddLetters(ContentManager contentManager)
@@ -31,7 +33,7 @@ namespace LDJam45
         public override void AdditionnalDraw(SpriteBatch spriteBatch)
         {
             // Message
-            string text = "Infinite mode unlocked";
+            string text = "Endless mode unlocked";
             Vector2 mPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth / 2,
                 _graphicsDevice.PreferredBackBufferHeight / 2 + 200);
             Vector2 middlePoint = font.MeasureString(text) / 2;

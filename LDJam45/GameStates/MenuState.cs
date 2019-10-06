@@ -106,11 +106,11 @@ namespace LDJam45
             if (allPressed)
             {
                 gameTime.TotalGameTime = TimeSpan.Zero;
-                NextState();
+                NextState(gameTime);
             }
         }
 
-        public virtual void NextState()
+        public virtual void NextState(GameTime gameTime)
         {
             this.game.SetState(new GameState(_graphicsDevice));
         }

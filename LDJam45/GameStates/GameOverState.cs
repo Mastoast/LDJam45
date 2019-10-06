@@ -42,7 +42,7 @@ namespace LDJam45
                     // reset game time
                     gameTime.TotalGameTime = TimeSpan.Zero;
                     // Retry level
-                    NextState();
+                    NextState(gameTime);
                 }
                 lastPressed = true;
             }
@@ -62,7 +62,7 @@ namespace LDJam45
 
         }
 
-        public override void NextState()
+        public override void NextState(GameTime gameTime)
         {
             this.game.SetState(new GameState(_graphicsDevice));
         }
@@ -76,6 +76,25 @@ namespace LDJam45
             Vector2 middlePoint = font.MeasureString(text) / 2;
             spriteBatch.DrawString(font, text, mPosition, Color.Black,
                 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+
+            // Score
+            if (LevelStorage.inBonus)
+            {
+                // score
+                text = "SCORE :" + LevelStorage.score.ToString();
+                mPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth / 2,
+                    _graphicsDevice.PreferredBackBufferHeight / 2 - 300);
+                middlePoint = font.MeasureString(text) / 2;
+                spriteBatch.DrawString(font, text,
+                    mPosition, Color.Black, 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+                // max score
+                text = "BEST SCORE :" + LevelStorage.maxScore.ToString();
+                mPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth / 2,
+                    _graphicsDevice.PreferredBackBufferHeight / 2 - 250);
+                middlePoint = font.MeasureString(text) / 2;
+                spriteBatch.DrawString(font, text,
+                    mPosition, Color.Black, 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+            }
         }
     }
 }

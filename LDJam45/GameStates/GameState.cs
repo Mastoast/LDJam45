@@ -30,6 +30,9 @@ namespace LDJam45
         private Texture2D rectTexture;
         private Vector2 rectOrigin;
 
+        private double bonusSpawnDelay = 3.5;
+        private double bonusSpawnCounter = 0;
+
         private double freezeTime;
         private bool frozen = false;
 
@@ -101,8 +104,13 @@ namespace LDJam45
                 gameTime.TotalGameTime = TimeSpan.Zero;
             // Reset HP
             health = 100;
+            // Reset Score
+            LevelStorage.score = 0;
+            // reset frozen
+            frozen = false;
             // Start first event
-            nextEvent = currentLevel.GetNextEvent();
+            if (!LevelStorage.inBonus)
+                nextEvent = currentLevel.GetNextEvent();
         }
 
         public override void UnloadContent()
@@ -139,7 +147,13 @@ namespace LDJam45
                 {
                     bullets.RemoveAt(i);
                     if (!frozen)
+                    {
                         Hurt(bulletDamage);
+                    }
+                    if (LevelStorage.inBonus && frozen)
+                    {
+                        Hurt(bulletDamage);
+                    }
                 }
                 else
                 {
@@ -155,6 +169,11 @@ namespace LDJam45
                             {
                                 SpawnDecimal(decim, numbers[j].speed, numbers[j].position.X);
                                 numbers.RemoveAt(j);
+                                LevelStorage.score += 10;
+                            }
+                            else
+                            {
+                                LevelStorage.score += 30;
                             }
 
                             bullets.RemoveAt(i);
@@ -198,21 +217,19 @@ namespace LDJam45
         */
         public void HandleEvent(GameTime gameTime)
         {
-            //DEBUG SKIP SPAWN
-            bool noNumber = false;
-            if (nextEvent.line != 0 && noNumber)
+            // Bonus
+            if (LevelStorage.inBonus)
             {
-                nextEvent = currentLevel.GetNextEvent();
-                return;
+                if (bonusSpawnCounter >= bonusSpawnDelay)
+                {
+                    bonusSpawnCounter = 0.0;
+                    RandomSpawn(gameTime.ElapsedGameTime.Seconds);
+                }
+                else
+                {
+                    bonusSpawnCounter += gameTime.ElapsedGameTime.TotalSeconds;
+                }
             }
-                
-            bool noText = false;
-            if (nextEvent.number == 0 && noText)
-            {
-                nextEvent = currentLevel.GetNextEvent();
-                return;
-            }
-            //DEBUG
 
             // Time frozen with texts
             if (frozen)
@@ -262,6 +279,20 @@ namespace LDJam45
             }
         }
 
+        public void SwitchtoBonus(GameTime gameTime)
+        {
+            LevelStorage.inBonus = true;
+        }
+
+        public void RandomSpawn(int seed)
+        {
+            Random rand = new Random();
+
+            int rLine = rand.Next(1, currentWord.length + 1);
+            // spawn event
+            SpawnNumber(rand.Next(1, 99), rand.Next(1, 99), rand.Next(250, 400), rLine);
+        }
+
         public void Hurt(int amount)
         {
             health -= amount;
@@ -272,6 +303,8 @@ namespace LDJam45
             if (health <= 0)
             {
                 game.SetState(new GameOverState(_graphicsDevice));
+                if (LevelStorage.score > LevelStorage.maxScore)
+                    LevelStorage.maxScore = LevelStorage.score;
             }
         }
 
@@ -315,11 +348,19 @@ namespace LDJam45
             //DEBUG
             //spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500, 500),Color.Black);
             //DEBUG
+            // Score
+            if (LevelStorage.inBonus)
+            {
+                spriteBatch.DrawString(font, "Score : " + LevelStorage.score.ToString(),
+                    new Vector2(500, 50), Color.Black);
+            }
+
             // Current word
             currentWord.Draw(spriteBatch);
 
             //Balloon
-            balloon.Draw(spriteBatch);
+            if (!LevelStorage.inBonus)
+                balloon.Draw(spriteBatch);
 
             // Bullets
             foreach (var item in bullets)

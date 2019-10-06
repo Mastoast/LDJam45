@@ -11,6 +11,11 @@ namespace LDJam45
         public static int currentEvent = -1;
         public static bool generated = false;
 
+        public static bool inBonus = false;
+        public static Level bonusLvl = new Level("ASDJKL");
+        public static int score = 0;
+        public static int maxScore = 0;
+
         public static void GenerateLevels()
         {
             generated = true;
@@ -147,12 +152,65 @@ namespace LDJam45
 
             // Level 5 : EASY
             Level easy = CreateLevel("EASY");
+            easy.Add(0, "THIS ONE SHOULD BE EASY");
             easy.Add(0, "GET READY !");
-            //easy.Add(1, , , , 1);
+            easy.Add(1, 8, 0, 800, 1);
+            easy.Add(1, 8, 0, 800, 2);
+            easy.Add(2, 5, 0, 800, 3);
+            easy.Add(2, 5, 0, 800, 4);
+            easy.Add(4, 87, 0, 800, 1);
+            easy.Add(4, 35, 0, 800, 2);
+            easy.Add(5, 6, 0, 800, 3);
+            easy.Add(5, 7, 0, 800, 4);
+            //
+            easy.Add(7, 7, 0, 800, 1);
+            easy.Add(7.5f, 8, 0, 800, 2);
+            easy.Add(8, 9, 0, 800, 3);
+            easy.Add(8.5f, 6, 0, 800, 4);
+            easy.Add(9, 9, 0, 800, 3);
+            easy.Add(9.5f, 8, 0, 800, 2);
+            easy.Add(10, 7, 0, 800, 1);
+            //
+            easy.Add(11, 4, 0, 800, 4);
+            easy.Add(11.5f, 9, 0, 800, 1);
+            easy.Add(12, 7, 0, 800, 4);
+            easy.Add(12.5f, 1, 0, 800, 1);
+            //
+            easy.Add(15f, 7, 8, 600, 1);
+            //
+            easy.Add(17f, 74, 0, 700, 1);
+            easy.Add(17f, 35, 0, 700, 2);
+            easy.Add(17f, 16, 0, 700, 3);
+            easy.Add(17f, 43, 0, 700, 4);
+
+            easy.Add(18f, 7, 0, 700, 1);
+            easy.Add(18f, 3, 0, 700, 2);
+            easy.Add(18f, 1, 0, 700, 3);
+            easy.Add(18f, 4, 0, 700, 4);
+
+            easy.Add(19f, 74, 0, 700, 1);
+            easy.Add(19f, 35, 0, 700, 2);
+            easy.Add(19f, 16, 0, 700, 3);
+            easy.Add(19f, 43, 0, 700, 4);
+
+            easy.Add(21f, 749, 0, 700, 1);
+            easy.Add(21f, 357, 0, 700, 2);
+            easy.Add(21f, 167, 0, 700, 3);
+            easy.Add(21f, 438, 0, 700, 4);
+            easy.Add(0, "OKAY");
 
             // Level 6 : DIFFICULT
             Level diff = CreateLevel("DIFFICULT");
-            diff.Add(0, " ");
+            diff.Add(0, "MY BAD, THIS IS THE EASY ONE");
+            diff.Add(2, 4, 8, 300, 1);
+            diff.Add(3.5f, 6, 8, 300, 2);
+            diff.Add(5, 3, 8, 300, 3);
+            diff.Add(6.5f, 8, 8, 300, 4);
+            diff.Add(8, 4, 8, 300, 5);
+            diff.Add(9.5f, 6, 8, 300, 6);
+            diff.Add(11, 4, 8, 300, 7);
+            diff.Add(12.5f, 7, 8, 300, 8);
+            diff.Add(14, 4, 8, 300, 9);
 
             // Level 7 : PI
             Level pi = CreateLevel("MATH");
@@ -174,6 +232,10 @@ namespace LDJam45
             pi.Add(31, 0, 9716, 300, 3);
             pi.Add(31, 0, 93993, 300, 1);
             pi.Add(0, "Good job soldier that's a victory");
+
+            // Level 8 Skip
+            /*Level skip = CreateLevel("SKIP");
+            skip.Add(0, " ");*/
         }
 
         private static Level CreateLevel(string word)
@@ -195,6 +257,8 @@ namespace LDJam45
 
         public static Level GetCurrentLevel()
         {
+            if (inBonus)
+                return bonusLvl;
             currentEvent = -1;
             return levels[currentLevel];
         }
