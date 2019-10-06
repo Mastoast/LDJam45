@@ -6,7 +6,7 @@ namespace LDJam45
     public static class LevelStorage
     {
         public static List<Level> levels;
-        public static int currentLevel = 1;
+        public static int currentLevel = 2;
         public static int currentEvent = -1;
         public static bool generated = false;
 
@@ -20,10 +20,10 @@ namespace LDJam45
 
             // Tuto : COMMANDER
             Level tuto = CreateLevel("COMMANDER");
-            tuto.Add(0, "Welcome to the army soldiers !");
+            tuto.Add(0, " Welcome to the army soldiers !\n(Press the space key to continue)");
             tuto.Add(0, "Today you will fight our \n worst enemy : Numbers");
-            tuto.Add(0, "We, Letters, should not let \n    them pass !");
-            tuto.Add(0, "Each of you will \n help stopping them,");
+            tuto.Add(0, "We, Letters, should not let \n        them pass !");
+            tuto.Add(0, "Each of you will help to stop them");
             tuto.Add(0, "Let's start with NOTHING");
 
             // Level 1 : NOTHING
@@ -53,19 +53,49 @@ namespace LDJam45
             // Level 2 : IS
             Level est = CreateLevel("IS");
             est.Add(0, "Get ready !");
-            est.Add(1, 1, 0, 250, 1);
-            est.Add(1.5f, 1, 0, 250, 2);
-            est.Add(2, 1, 0, 250, 1);
-            est.Add(2.5f, 1, 0, 250, 1);
-            est.Add(3, 1, 0, 250, 2);
+            est.Add(1f, 1, 0, 400, 1);
+            est.Add(1f, 1, 0, 400, 2);
+            est.Add(1.5f, 2, 0, 400, 1);
+            est.Add(1.5f, 1, 0, 400, 2);
+            est.Add(2f, 1, 0, 400, 1);
+            est.Add(2f, 2, 0, 400, 2);
+            est.Add(2.5f, 2, 0, 400, 1);
+            est.Add(2.5f, 1, 0, 400, 2);
+            est.Add(3f, 1, 0, 400, 1);
+            est.Add(3f, 2, 0, 400, 2);
+            est.Add(3f, 1, 0, 600, 1);
+            est.Add(3f, 2, 0, 600, 2);
+            est.Add(3.5f, 2, 0, 400, 1);
+            est.Add(3.5f, 1, 0, 400, 2);
+            est.Add(4f, 1, 0, 400, 1);
+            est.Add(4f, 2, 0, 400, 2);
+            est.Add(4.5f, 2, 0, 800, 1);
+            est.Add(4.5f, 1, 0, 800, 2);
+            //est.Add(0, "Keep going !");
+            est.Add(6f, 5, 0, 1000, 1);
+            est.Add(6.8f, 7, 0, 1000, 1);
+            est.Add(7.4f, 9, 0, 1000, 1);
+            est.Add(8.1f, 3, 0, 1000, 2);
+            est.Add(8.8f, 2, 0, 1000, 2);
+            est.Add(9.5f, 6, 0, 1000, 1);
+            est.Add(10.2f, 8, 0, 1000, 2);
+            est.Add(11f, 8, 0, 1000, 1);
+
+            est.Add(0, "Well done, next !");
 
             //Level 3 : IMPOSSIBLE
             Level impossible = CreateLevel("IMPOSSIBLE");
-            impossible.Add(1, 1, 0, 100, 1);
-            impossible.Add(2, 1, 0, 100, 1);
-            impossible.Add(3, 1, 0, 100, 1);
-            impossible.Add(4, 1, 0, 100, 1);
-            impossible.Add(5, 1, 0, 100, 1);
+            impossible.Add(0, "the next wave looks stronger");
+            impossible.Add(0, "you will need more than one bullet for these");
+            impossible.Add(1, 1238, 0, 100, 1);
+            impossible.Add(2, 1614, 0, 100, 1);
+            impossible.Add(3, 1974, 0, 100, 1);
+            impossible.Add(4, 161, 0, 100, 1);
+            impossible.Add(5, 8491, 0, 100, 1);
+            impossible.Add(0, "oh no, there are decimals hidding among them");
+            impossible.Add(0, "watch for surprise attacks");
+
+            impossible.Add(0, "Well done, next !");
         }
 
         private static Level CreateLevel(string word)
