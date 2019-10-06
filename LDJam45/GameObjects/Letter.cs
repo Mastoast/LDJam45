@@ -11,20 +11,20 @@ namespace LDJam45
     {
         public string letter;
         public Vector2 position;
+        public double timeBeforeShot = 0.0;
 
+        public static double cooldown = 0.5;
         public static int squareSize = 40;
         public static int squareMargin = 8;
 
         private float rotation;
         //private float rotationSpeed;
-        private double cooldown = 0.5;
-        private double timeBeforeShot = 0.0;
         private bool lastPressed = true;
 
         private Texture2D squareText;
         private Vector2 squareOrigin;
-
         private SpriteFont font;
+
         private Color letterColor = Color.Black;
         private Color marginColor = Color.Maroon;
         private Color backColor;

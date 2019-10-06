@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace LDJam45
 {
-    public class GameOverState : Menustate
+    public class GameOverState : MenuState
     {
 
         public GameOverState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
@@ -23,6 +25,40 @@ namespace LDJam45
             {
                 item.LoadContent(contentManager);
             }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            double delta = gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Is SpaceBar pressed
+            var kstate = Keyboard.GetState();
+            if (kstate.IsKeyDown(Keys.Space))
+            {
+                // Only if new press
+                if (!lastPressed)
+                {
+                    // reset game time
+                    gameTime.TotalGameTime = TimeSpan.Zero;
+                    // Retry level
+                    NextState();
+                }
+                lastPressed = true;
+            }
+            else
+            {
+                lastPressed = false;
+            }
+
+            // Update letters
+            bool allPressed = true;
+            foreach (var item in letters)
+            {
+                item.Update(gameTime);
+                if (item.timeBeforeShot != 0)
+                    allPressed = false;
+            }
+
         }
 
         public override void NextState()

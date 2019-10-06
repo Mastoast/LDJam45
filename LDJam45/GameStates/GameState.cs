@@ -31,6 +31,8 @@ namespace LDJam45
 
         public override void Initialize()
         {
+            // cooldown
+            Letter.cooldown = 0.5;
             // Numbers list
             numbers = new List<Number>();
             // Bullets list
@@ -57,7 +59,11 @@ namespace LDJam45
             this.contentManager = contentManager;
 
             //  Start the first Word
-            currentLevel = LevelStorage.GetNextLevel();
+            if (LevelStorage.currentLevel == -1)
+                currentLevel = LevelStorage.GetNextLevel();
+            else
+                currentLevel = LevelStorage.GetCurrentLevel();
+
             StartLevel(null);
         }
 
@@ -175,7 +181,7 @@ namespace LDJam45
             {
                 if (numbers.Count != 0)
                     return; // wait for all numbers to disapear
-                currentLevel = LevelStorage.GetNextLevel();
+                LevelStorage.GetNextLevel();
                 // End of the game
                 if (currentLevel.word.Equals(""))
                 {

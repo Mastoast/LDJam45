@@ -6,6 +6,8 @@ namespace LDJam45
     public static class LevelStorage
     {
         public static List<Level> levels;
+        public static int currentLevel = -1;
+        public static int currentEvent = -1;
         public static bool generated = false;
 
         public static void GenerateLevels()
@@ -17,12 +19,14 @@ namespace LDJam45
             // time | number | decimal | speed | line
 
             // Tuto : COMMANDER
+            /*
             Level tuto = CreateLevel("COMMANDER");
             tuto.Add(0, "Welcome to the army soldiers !");
             tuto.Add(0, "Today you will fight our \n worst enemy : Numbers");
             tuto.Add(0, "We, Letters, should not let \n    them pass !");
             tuto.Add(0, "Each of you will \n help stopping them,");
             tuto.Add(0, "Let's start with NOTHING");
+            */
 
             // Level 1 : NOTHING
             Level nothing = CreateLevel("NOTHING");
@@ -73,11 +77,18 @@ namespace LDJam45
 
         public static Level GetNextLevel()
         {
-            if (levels.Count == 0)
-                return new Level(""); // No more events
-            Level nextLvl = levels[0];
-            levels.RemoveAt(0);
-            return nextLvl;
+            // End of level
+            if (currentLevel == levels.Count)
+                return new Level(""); // No more events;
+            currentLevel++;
+            currentEvent = -1;
+            return levels[currentLevel];
+        }
+
+        public static Level GetCurrentLevel()
+        {
+            currentEvent = -1;
+            return levels[currentLevel];
         }
     }
 
@@ -104,11 +115,10 @@ namespace LDJam45
 
         public Event GetNextEvent()
         {
-            if (events.Count == 0)
+            if (LevelStorage.currentEvent == events.Count)
                 return new Event(0, ""); // No more events
-            Event nextEvent = events[0];
-            events.RemoveAt(0);
-            return nextEvent;
+            LevelStorage.currentEvent += 1;
+            return events[LevelStorage.currentEvent];
         }
     }
 

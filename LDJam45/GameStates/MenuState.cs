@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace LDJam45
 {
-    public class Menustate : State
+    public class MenuState : State
     {
         protected List<Letter> letters;
         protected int spaceMargin = 10;
@@ -16,9 +16,10 @@ namespace LDJam45
         protected SpriteFont font;
         protected bool lastPressed = true;
 
-        public Menustate(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
+        public MenuState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
-            centralWord = "START";
+            centralWord = "AGAINST";
+            Letter.cooldown = 15;
         }
 
         public void PlaceWord(string word, int offsetY)
@@ -66,7 +67,11 @@ namespace LDJam45
         public virtual void AddLetters(ContentManager contentManager)
         {
             // Place word on screen
-            PlaceWord(centralWord, 0);
+            PlaceWord("LETTERS", -170);
+            PlaceWord(centralWord, -120);
+            PlaceWord("NUMBERS", -70);
+
+            PlaceWord("START", 130);
 
             // Load Letters
             foreach (var item in letters)
@@ -105,10 +110,17 @@ namespace LDJam45
             }
 
             // Update letters
+            bool allPressed = true;
             foreach (var item in letters)
             {
                 item.Update(gameTime);
+                if (item.timeBeforeShot == 0.0)
+                    allPressed = false;
             }
+
+            // Switch state when all keys are pressed
+            if (allPressed)
+                NextState();
         }
 
         public virtual void NextState()
@@ -130,9 +142,9 @@ namespace LDJam45
         public virtual void AdditionnalDraw(SpriteBatch spriteBatch)
         {
             // Message
-            string text = "Press SPACE Key to";
+            string text = "Type all the letters to";
             Vector2 mPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth /2,
-                _graphicsDevice.PreferredBackBufferHeight / 2 - 100);
+                _graphicsDevice.PreferredBackBufferHeight / 2 + 50);
             Vector2 middlePoint = font.MeasureString(text) / 2;
             spriteBatch.DrawString(font, text, mPosition, Color.Black,
                 0, middlePoint, 1.0f, SpriteEffects.None, 1f);
