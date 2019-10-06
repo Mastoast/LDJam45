@@ -12,6 +12,7 @@ namespace LDJam45
         public GameOverState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
             centralWord = "GAME OVER";
+            Letter.cooldown = 0.5f;
         }
 
         public override void AddLetters(ContentManager contentManager)

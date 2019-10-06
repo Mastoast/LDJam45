@@ -19,14 +19,12 @@ namespace LDJam45
             // time | number | decimal | speed | line
 
             // Tuto : COMMANDER
-            /*
             Level tuto = CreateLevel("COMMANDER");
             tuto.Add(0, "Welcome to the army soldiers !");
             tuto.Add(0, "Today you will fight our \n worst enemy : Numbers");
             tuto.Add(0, "We, Letters, should not let \n    them pass !");
             tuto.Add(0, "Each of you will \n help stopping them,");
             tuto.Add(0, "Let's start with NOTHING");
-            */
 
             // Level 1 : NOTHING
             Level nothing = CreateLevel("NOTHING");
@@ -80,7 +78,7 @@ namespace LDJam45
             // End of level
             if (currentLevel == levels.Count)
                 return new Level(""); // No more events;
-            currentLevel++;
+            currentLevel += 1;
             currentEvent = -1;
             return levels[currentLevel];
         }
@@ -115,7 +113,7 @@ namespace LDJam45
 
         public Event GetNextEvent()
         {
-            if (LevelStorage.currentEvent == events.Count)
+            if (LevelStorage.currentEvent == events.Count - 1)
                 return new Event(0, ""); // No more events
             LevelStorage.currentEvent += 1;
             return events[LevelStorage.currentEvent];

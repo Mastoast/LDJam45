@@ -181,7 +181,7 @@ namespace LDJam45
             {
                 if (numbers.Count != 0)
                     return; // wait for all numbers to disapear
-                LevelStorage.GetNextLevel();
+                currentLevel = LevelStorage.GetNextLevel();
                 // End of the game
                 if (currentLevel.word.Equals(""))
                 {
