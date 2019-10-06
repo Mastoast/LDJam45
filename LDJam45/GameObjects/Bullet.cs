@@ -6,7 +6,7 @@ namespace LDJam45
 {
     public class Bullet : GameObject
     {
-        public static int speed = 1500;
+        public static int speed = 1300;
         public string letter;
         public Vector2 position;
 
@@ -51,7 +51,28 @@ namespace LDJam45
         {
             // Bullet head
             Vector2 middlePoint = font.MeasureString(letter) / 2;
-            spriteBatch.DrawString(font, letter, this.position, bulletColor, 0, middlePoint, 0.5f, SpriteEffects.None, 1f);
+            float scale = 0.6f;
+            spriteBatch.DrawString(font, letter, this.position, bulletColor, 0,
+                middlePoint, scale, SpriteEffects.None, 1f);
+
+            // Draw bullet trace
+            int nbTail = 10;
+            int offset = 15;
+
+            for (int i = 1; i <= nbTail; i++)
+            {
+                // decrease position
+                Vector2 tailPos = new Vector2(this.position.X - (i * offset), this.position.Y);
+                // reduce alpha channel
+                Color tailColor = Color.Multiply(bulletColor, 1 - (i * 0.05f));
+                // decrease size
+                float tailScale = scale - (scale/2 * (i * 0.1f));
+                if (tailPos.X > 75)
+                {
+                    spriteBatch.DrawString(font, letter, tailPos, tailColor, 0,
+                    middlePoint, tailScale, SpriteEffects.None, 0.5f);
+                }
+            }
         }
     }
 }

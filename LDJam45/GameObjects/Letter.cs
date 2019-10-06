@@ -17,7 +17,7 @@ namespace LDJam45
         public static int squareMargin = 8;
 
         private float rotation;
-        //private float rotationSpeed;
+        private float rotationSpeed;
         private bool lastPressed = true;
 
         private Texture2D squareText;
@@ -39,8 +39,9 @@ namespace LDJam45
             this.letter = letter.ToString().ToUpper();
 
             this.font = font;
-            this.rotation = 0f;
-            this.position = Vector2.Zero;
+            rotation = 0f;
+            rotationSpeed = 0.5f;
+            position = Vector2.Zero;
 
             backNormalColor = new Color(0.9f, 0.9f, 0.9f);
             backCdColor = new Color(0.2f, 0.2f, 0.2f);
@@ -117,6 +118,9 @@ namespace LDJam45
             {
                 this.lastPressed = false;
             }
+
+            // Rotate rectangles
+            // TODO
         }
 
         private void Shoot()
@@ -133,6 +137,9 @@ namespace LDJam45
 
         public void DrawAtPosition(SpriteBatch spriteBatch, Vector2 position)
         {
+            float scaleFactor = (float)(timeBeforeShot / cooldown);
+            float scale = 1f + scaleFactor;
+
             // Square Texture
             // margin
             spriteBatch.Draw(squareText, new Rectangle((int)position.X, (int)position.Y,
@@ -146,14 +153,14 @@ namespace LDJam45
             // Font
             Vector2 middlePoint = font.MeasureString(letter) / 2;
             spriteBatch.DrawString(font, letter, position, letterColor,
-                0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+                0, middlePoint, scale, SpriteEffects.None, 1f);
 
             // Font Shadow
             float shadowOffset = 3f;
             Color shadowColor = Color.Multiply(letterColor, 0.7f);
             Vector2 shadowPos = new Vector2(position.X - shadowOffset, position.Y - shadowOffset);
             spriteBatch.DrawString(font, letter, shadowPos, shadowColor,
-                0, middlePoint, 1.0f, SpriteEffects.None, 1f);
+                0, middlePoint, scale, SpriteEffects.None, 1f);
         }
     }
 }
