@@ -83,20 +83,27 @@ namespace LDJam45
 
             est.Add(0, "Well done, next !");
 
-            //Level 3 : IMPOSSIBLE
-            Level impossible = CreateLevel("IMPOSSIBLE");
-            impossible.Add(0, "the next wave looks stronger");
-            impossible.Add(0, "you will need more than one bullet for these");
-            impossible.Add(1, 1238, 0, 250, 2);
-            impossible.Add(2.5f, 1614, 0, 250, 8);
-            impossible.Add(4, 1974, 0, 250, 4);
-            impossible.Add(5.5f, 1617, 0, 250, 5);
-            impossible.Add(5.5f, 8491, 0, 250, 6);
-            impossible.Add(0, "oh no, there are decimals\n" +
+            //Level 3 : SURE
+            Level sure = CreateLevel("SURE");
+            sure.Add(0, "the next wave looks stronger");
+            sure.Add(0, "you will need more than one bullet for these");
+            sure.Add(1, 1238, 0, 250, 2);
+            sure.Add(2.5f, 1614, 0, 250, 3);
+            sure.Add(4, 1974, 0, 250, 4);
+            sure.Add(5.5f, 1617, 0, 250, 2);
+            sure.Add(5.5f, 8491, 0, 250, 1);
+            sure.Add(0, "oh no, there are decimals\n" +
                 "    hidding among them   ");
-            impossible.Add(0, "watch for surprise attacks");
-            impossible.Add(5.5f, 8491, 0, 250, 6);
-            impossible.Add(0, "Well done, next !");
+            sure.Add(0, "watch for surprise attacks");
+            sure.Add(7f, 91, 5, 250, 1);
+            sure.Add(13f, 34, 8, 250, 2);
+            sure.Add(17f, 5, 8768, 250, 3);
+            //
+            sure.Add(23f, 832, 8, 250, 1);
+            sure.Add(25f, 75, 89, 250, 2);
+            sure.Add(27f, 13, 87, 250, 3);
+            sure.Add(29f, 1, 2, 250, 4);
+            sure.Add(0, "Well done, next !");
         }
 
         private static Level CreateLevel(string word)

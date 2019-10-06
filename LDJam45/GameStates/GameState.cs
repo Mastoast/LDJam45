@@ -33,6 +33,8 @@ namespace LDJam45
         private double freezeTime;
         private bool frozen = false;
 
+        string debugText;
+
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
         }
@@ -116,6 +118,7 @@ namespace LDJam45
         */
         public override void Update(GameTime gameTime)
         {
+            debugText = gameTime.TotalGameTime.TotalSeconds.ToString();
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
             //Balloon
             balloon.Update(gameTime);
@@ -172,7 +175,7 @@ namespace LDJam45
                     // Check collisions
                     if (numbers[i].position.X <= (currentWord.leftPosition + Letter.squareSize))
                     {
-                        Hurt(numbers[i].damage);
+                        Hurt(numbers[i].damage * numbers[i].number.ToString().Length);
                         numbers.RemoveAt(i);
                     }
                     else
@@ -195,8 +198,19 @@ namespace LDJam45
         public void HandleEvent(GameTime gameTime)
         {
             //DEBUG SKIP SPAWN
-            if (nextEvent.line != 0 && false)
+            bool noNumber = false;
+            if (nextEvent.line != 0 && noNumber)
+            {
                 nextEvent = currentLevel.GetNextEvent();
+                return;
+            }
+                
+            bool noText = false;
+            if (nextEvent.number == 0 && noText)
+            {
+                nextEvent = currentLevel.GetNextEvent();
+                return;
+            }
             //DEBUG
 
             // Time frozen with texts
@@ -297,6 +311,10 @@ namespace LDJam45
         */
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //DEBUG
+            spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500, 500),
+            Color.Black);
+            //DEBUG
             // Current word
             currentWord.Draw(spriteBatch);
 

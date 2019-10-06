@@ -121,11 +121,8 @@ namespace LDJam45
             }
             else
             {
-                this.lastPressed = false;
+                lastPressed = false;
             }
-
-            // Rotate rectangles
-            // TODO
         }
 
         private void Shoot()
