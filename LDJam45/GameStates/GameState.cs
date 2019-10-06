@@ -149,13 +149,18 @@ namespace LDJam45
                     {
                         if (bullets[i].GetRectangle().Intersects(numbers[j].GetRectangle()))
                         {
+                            // Hit
                             int decim = numbers[j].Hit();
                             if (decim != -1)
                             {
+                                // SPawn particle
+                                pg.SpawnParticles((int)bullets[i].position.X,
+                                    (int)bullets[i].position.Y, 4, 20, 100f);
                                 // Split decimal
                                 SpawnDecimal(decim, numbers[j].speed, numbers[j].position.X);
                                 numbers.RemoveAt(j);
                             }
+
                             bullets.RemoveAt(i);
                             alive = false;
                             break;

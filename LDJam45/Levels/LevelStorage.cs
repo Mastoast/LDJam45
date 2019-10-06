@@ -104,6 +104,8 @@ namespace LDJam45
             sure.Add(27f, 13, 87, 250, 3);
             sure.Add(29f, 1, 2, 250, 4);
             sure.Add(0, "Well done, next !");
+
+            // Level 4 : 
         }
 
         private static Level CreateLevel(string word)
