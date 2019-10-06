@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace LDJam45
 {
@@ -22,7 +23,7 @@ namespace LDJam45
             Content.RootDirectory = "Content";
 
             // First state
-            currentState = new GameState(graphics);
+            currentState = new WinState(graphics);
             currentState.SetGame(this);
         }
 
@@ -60,10 +61,12 @@ namespace LDJam45
 
         public void SetState(State newState)
         {
+            Console.WriteLine("oui");
             // Unload old scene
             currentState.UnloadContent();
             // Init new scene
             currentState = newState;
+            currentState.SetGame(this);
             currentState.Initialize();
             currentState.LoadContent(Content);
         }

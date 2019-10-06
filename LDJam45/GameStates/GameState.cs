@@ -208,7 +208,7 @@ namespace LDJam45
         {
             health -= amount;
             // Game Over
-            if (amount <= 0)
+            if (health <= 0)
             {
                 this.game.SetState(new GameOverState(_graphicsDevice));
             }
@@ -216,7 +216,7 @@ namespace LDJam45
 
         public void SetWin()
         {
-            //TODO WINState
+            game.SetState(new WinState(_graphicsDevice));
         }
 
         public void SpawnNumber(int number, int decim, int speed, int line)

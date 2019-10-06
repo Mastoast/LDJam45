@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using System;
 
 namespace LDJam45
 {
@@ -14,13 +14,14 @@ namespace LDJam45
         protected string centralWord;
 
         protected SpriteFont font;
+        protected bool lastPressed = true;
 
         public Menustate(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
             centralWord = "START";
         }
 
-        public void PlaceWord(string word)
+        public void PlaceWord(string word, int offsetY)
         {
             int availableSpace = _graphicsDevice.PreferredBackBufferWidth;
             int squareSize = Letter.squareSize + Letter.squareMargin;
@@ -40,7 +41,7 @@ namespace LDJam45
                     Letter newLetter = new Letter(_graphicsDevice, word[i], font);
                     // place the letters at the center of the height
                     newLetter.position = new Vector2(lettersOffset + (squareSize * i) + (spaceMargin * i),
-                        upPosition);
+                        upPosition + offsetY);
                     letters.Add(newLetter);
                 }
             }
@@ -58,10 +59,16 @@ namespace LDJam45
             // Letters list
             letters = new List<Letter>();
 
-            // Place word on screen
-            PlaceWord(centralWord);
+            AddLetters(contentManager);
 
-            // Letters
+        }
+
+        public virtual void AddLetters(ContentManager contentManager)
+        {
+            // Place word on screen
+            PlaceWord(centralWord, 0);
+
+            // Load Letters
             foreach (var item in letters)
             {
                 item.LoadContent(contentManager);
@@ -81,10 +88,32 @@ namespace LDJam45
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
 
+            // Is SpaceBar pressed
+            var kstate = Keyboard.GetState();
+            if (kstate.IsKeyDown(Keys.Space))
+            {
+                // Only if new press
+                if (!lastPressed)
+                {
+                    NextState();
+                }
+                lastPressed = true;
+            }
+            else
+            {
+                lastPressed = false;
+            }
+
+            // Update letters
             foreach (var item in letters)
             {
                 item.Update(gameTime);
             }
+        }
+
+        public virtual void NextState()
+        {
+            this.game.SetState(new GameState(_graphicsDevice));
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -95,7 +124,18 @@ namespace LDJam45
                 // Draw Letters
                 item.Draw(spriteBatch);
             }
+            AdditionnalDraw(spriteBatch);
+        }
 
+        public virtual void AdditionnalDraw(SpriteBatch spriteBatch)
+        {
+            // Message
+            string text = "Press SPACE Key to";
+            Vector2 mPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth /2,
+                _graphicsDevice.PreferredBackBufferHeight / 2 - 100);
+            Vector2 middlePoint = font.MeasureString(text) / 2;
+            spriteBatch.DrawString(font, text, mPosition, Color.Black,
+                0, middlePoint, 1.0f, SpriteEffects.None, 1f);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace LDJam45
             Level nothing = CreateLevel("NOTHING");
             nothing.Add(0, "Press the LETTER KEYS \n to shoot with your letters");
             nothing.Add(0, "Don't let them touch you");
-            nothing.Add(1, 1, 0, 100, 1);
+            nothing.Add(1, 1, 0, 500, 1);
             nothing.Add(1, 1, 0, 100, 6);
             nothing.Add(2, 2, 0, 100, 2);
             nothing.Add(3, 3, 0, 100, 3);
