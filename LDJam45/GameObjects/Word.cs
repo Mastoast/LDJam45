@@ -14,7 +14,7 @@ namespace LDJam45
         public int leftPosition = 75;
 
         private int initUpPosition = 0;
-        private float initSpeed = 450;
+        private float initSpeed = 1450;
 
         private List<Letter> letters;
         private SpriteFont font;

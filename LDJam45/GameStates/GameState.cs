@@ -12,6 +12,7 @@ namespace LDJam45
         public static List<Bullet> bullets;
 
         public int health = 100;
+        private int bulletDamage = 5;
 
         protected Word currentWord;
         protected Level currentLevel;
@@ -135,7 +136,7 @@ namespace LDJam45
                 {
                     bullets.RemoveAt(i);
                     if (!frozen)
-                        Hurt(2);
+                        Hurt(bulletDamage);
                 }
                 else
                 {
@@ -193,6 +194,11 @@ namespace LDJam45
         */
         public void HandleEvent(GameTime gameTime)
         {
+            //DEBUG SKIP SPAWN
+            if (nextEvent.line != 0 && false)
+                nextEvent = currentLevel.GetNextEvent();
+            //DEBUG
+
             // Time frozen with texts
             if (frozen)
             {

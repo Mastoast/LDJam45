@@ -6,7 +6,7 @@ namespace LDJam45
     public static class LevelStorage
     {
         public static List<Level> levels;
-        public static int currentLevel = 2;
+        public static int currentLevel = 3;
         public static int currentEvent = -1;
         public static bool generated = false;
 
@@ -71,15 +71,15 @@ namespace LDJam45
             est.Add(4f, 2, 0, 400, 2);
             est.Add(4.5f, 2, 0, 800, 1);
             est.Add(4.5f, 1, 0, 800, 2);
-            //est.Add(0, "Keep going !");
-            est.Add(6f, 5, 0, 1000, 1);
-            est.Add(6.8f, 7, 0, 1000, 1);
-            est.Add(7.4f, 9, 0, 1000, 1);
-            est.Add(8.1f, 3, 0, 1000, 2);
-            est.Add(8.8f, 2, 0, 1000, 2);
-            est.Add(9.5f, 6, 0, 1000, 1);
-            est.Add(10.2f, 8, 0, 1000, 2);
-            est.Add(11f, 8, 0, 1000, 1);
+            est.Add(0, "Keep going !");
+            est.Add(7f, 5, 0, 1000, 1);
+            est.Add(7.8f, 7, 0, 1000, 1);
+            est.Add(8.4f, 9, 0, 1000, 1);
+            est.Add(9.1f, 3, 0, 1000, 2);
+            est.Add(9.8f, 2, 0, 1000, 2);
+            est.Add(10.5f, 6, 0, 1000, 1);
+            est.Add(11.2f, 8, 0, 1000, 2);
+            est.Add(12f, 8, 0, 1000, 1);
 
             est.Add(0, "Well done, next !");
 
@@ -87,14 +87,15 @@ namespace LDJam45
             Level impossible = CreateLevel("IMPOSSIBLE");
             impossible.Add(0, "the next wave looks stronger");
             impossible.Add(0, "you will need more than one bullet for these");
-            impossible.Add(1, 1238, 0, 100, 1);
-            impossible.Add(2, 1614, 0, 100, 1);
-            impossible.Add(3, 1974, 0, 100, 1);
-            impossible.Add(4, 161, 0, 100, 1);
-            impossible.Add(5, 8491, 0, 100, 1);
-            impossible.Add(0, "oh no, there are decimals hidding among them");
+            impossible.Add(1, 1238, 0, 250, 2);
+            impossible.Add(2.5f, 1614, 0, 250, 8);
+            impossible.Add(4, 1974, 0, 250, 4);
+            impossible.Add(5.5f, 1617, 0, 250, 5);
+            impossible.Add(5.5f, 8491, 0, 250, 6);
+            impossible.Add(0, "oh no, there are decimals\n" +
+                "    hidding among them   ");
             impossible.Add(0, "watch for surprise attacks");
-
+            impossible.Add(5.5f, 8491, 0, 250, 6);
             impossible.Add(0, "Well done, next !");
         }
 

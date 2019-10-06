@@ -38,7 +38,7 @@ namespace LDJam45
             backColor = new Color(0.9f, 0.9f, 0.9f);
 
             text = "";
-            position = new Rectangle(_graphicsDevice.PreferredBackBufferWidth / 2, 100, 800, 100);
+            position = new Rectangle(_graphicsDevice.PreferredBackBufferWidth / 2, 100, 900, 100);
 
             marginOffset = backOffset = textOffset = Vector2.Zero;
             marginSize = 8;
