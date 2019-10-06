@@ -16,13 +16,17 @@ namespace LDJam45
             levels = new List<Level>();
             // time | number | decimal | speed | line
 
+            // Tuto : COMMANDER
+            Level tuto = CreateLevel("COMMANDER");
+            tuto.Add(0, "Welcome to the army soldiers !");
+            tuto.Add(0, "Today you will fight our \n worst enemy : Numbers");
+            tuto.Add(0, "We, Letters, will not let \n    them go through !");
+            tuto.Add(0, "Each of you will \n help stopping them,");
+            tuto.Add(0, "Let's start with nothing");
+
             // Level 1 : NOTHING
             Level nothing = CreateLevel("NOTHING");
-            nothing.Add(0, "Welcome to the army soldiers !");
-            nothing.Add(0, "Today you will fight our \n worst enemy : Numbers");
-            nothing.Add(0, "We, Letters, will not let \n    them go through !");
-            nothing.Add(0, "Each of you will \n help stopping them,");
-            nothing.Add(0, "Let's start with nothing");
+            nothing.Add(0, "Press the LETTER KEYS \n to shoot with your letters");
             nothing.Add(1, 1, 0, 100, 1);
             nothing.Add(1, 1, 0, 100, 6);
             nothing.Add(2, 2, 0, 100, 2);
