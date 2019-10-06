@@ -6,13 +6,13 @@ namespace LDJam45
 {
     public class State : GameObject
     {
-        protected Game game;
+        protected Game1 game;
 
         public State(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
         }
 
-        public void SetGame(Game game)
+        public void SetGame(Game1 game)
         {
             this.game = game;
         }

@@ -37,7 +37,7 @@ namespace LDJam45
             marginColor = Color.Black;
             backColor = new Color(0.9f, 0.9f, 0.9f);
 
-            text = "TEST";
+            text = "";
             position = new Rectangle(_graphicsDevice.PreferredBackBufferWidth / 2, 100, 800, 100);
 
             marginOffset = backOffset = textOffset = Vector2.Zero;

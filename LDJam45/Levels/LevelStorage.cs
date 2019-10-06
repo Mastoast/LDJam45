@@ -20,13 +20,14 @@ namespace LDJam45
             Level tuto = CreateLevel("COMMANDER");
             tuto.Add(0, "Welcome to the army soldiers !");
             tuto.Add(0, "Today you will fight our \n worst enemy : Numbers");
-            tuto.Add(0, "We, Letters, will not let \n    them go through !");
+            tuto.Add(0, "We, Letters, should not let \n    them pass !");
             tuto.Add(0, "Each of you will \n help stopping them,");
-            tuto.Add(0, "Let's start with nothing");
+            tuto.Add(0, "Let's start with NOTHING");
 
             // Level 1 : NOTHING
             Level nothing = CreateLevel("NOTHING");
             nothing.Add(0, "Press the LETTER KEYS \n to shoot with your letters");
+            nothing.Add(0, "Don't let them touch you");
             nothing.Add(1, 1, 0, 100, 1);
             nothing.Add(1, 1, 0, 100, 6);
             nothing.Add(2, 2, 0, 100, 2);
@@ -44,6 +45,7 @@ namespace LDJam45
             nothing.Add(12, 2, 0, 100, 2);
             nothing.Add(13, 1, 0, 100, 1);
             nothing.Add(13, 1, 0, 100, 6);
+            nothing.Add(20, "Next ones will be fast, \n we need a shorter guy \n for the next wave");
 
             // Level 2 : IS
             Level est = CreateLevel("IS");

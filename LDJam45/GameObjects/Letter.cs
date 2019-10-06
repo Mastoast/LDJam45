@@ -17,7 +17,7 @@ namespace LDJam45
 
         private float rotation;
         //private float rotationSpeed;
-        private double cooldown = 0.0;
+        private double cooldown = 0.5;
         private double timeBeforeShot = 0.0;
         private bool lastPressed = true;
 
@@ -27,7 +27,10 @@ namespace LDJam45
         private SpriteFont font;
         private Color letterColor = Color.Black;
         private Color marginColor = Color.Maroon;
-        private Color backColor = Color.AntiqueWhite;
+        private Color backColor;
+
+        private Color backNormalColor;
+        private Color backCdColor;
 
         public Letter(GraphicsDeviceManager graphicsDevice, char letter, SpriteFont font) : base(graphicsDevice)
         {
@@ -36,6 +39,10 @@ namespace LDJam45
             this.font = font;
             this.rotation = 0f;
             this.position = Vector2.Zero;
+
+            backNormalColor = new Color(0.9f, 0.9f, 0.9f);
+            backCdColor = new Color(0.2f, 0.2f, 0.2f);
+            backColor = backNormalColor;
         }
 
         public override void Initialize()
@@ -64,7 +71,10 @@ namespace LDJam45
             {
                 timeBeforeShot -= delta;
                 if (timeBeforeShot < 0.0)
+                {
                     timeBeforeShot = 0.0;
+                    backColor = backNormalColor;
+                }
             }
 
             // Get pressed keys
@@ -89,6 +99,7 @@ namespace LDJam45
                     {
                         this.Shoot();
                         timeBeforeShot = cooldown;
+                        backColor = backCdColor;
                     }
                 }
                 lastPressed = true;

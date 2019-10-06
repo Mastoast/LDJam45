@@ -210,7 +210,7 @@ namespace LDJam45
             // Game Over
             if (amount <= 0)
             {
-                // TODO Game over state
+                this.game.SetState(new GameOverState(_graphicsDevice));
             }
         }
 
@@ -228,6 +228,12 @@ namespace LDJam45
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //DEBUG
+            var debugText = health.ToString();
+            spriteBatch.DrawString(font, debugText.ToString(), new Vector2(0, 650),
+            Color.Black);
+            //DEBUG
+
             // Current word
             currentWord.Draw(spriteBatch);
 
