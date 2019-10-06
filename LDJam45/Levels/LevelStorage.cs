@@ -26,7 +26,7 @@ namespace LDJam45
                         "   worst enemy : Numbers  ");
             tuto.Add(0, "We, Letters, should not let \n" +
                         "        them pass !");
-            tuto.Add(0, "Each of you will help to stop them");
+            tuto.Add(0, "Each of you will fight to stop them");
             tuto.Add(0, "Let's start with NOTHING");
 
             // Level 1 : NOTHING
@@ -101,7 +101,7 @@ namespace LDJam45
             sure.Add(5.5f, 1617, 0, 250, 2);
             sure.Add(5.5f, 8491, 0, 250, 1);
             sure.Add(0, "oh no, there are decimals\n" +
-                "    hidding among them   ");
+                "    hiding among them   ");
             sure.Add(0, "watch for surprise attacks");
             sure.Add(7f, 91, 5, 250, 1);
             sure.Add(13f, 34, 8, 250, 2);
@@ -142,7 +142,7 @@ namespace LDJam45
             vi.Add(13, 7, 49, 350, 6);
             vi.Add(0, "ok stop now");
             vi.Add(0, " you will just kill yourself \n" +
-                "  if you continue like that");
+                "  if you keep that up");
             vi.Add(0, "Next !");
 
             // Level 5 : EASY
@@ -152,11 +152,11 @@ namespace LDJam45
 
             // Level 6 : DIFFICULT
             Level diff = CreateLevel("DIFFICULT");
-            diff.Add(0, "Wait ! Who are you ?");
+            diff.Add(0, " ");
 
             // Level 7 : PI
             Level pi = CreateLevel("MATH");
-            pi.Add(0, "The big one is comming");
+            pi.Add(0, "The big one is coming");
             pi.Add(3, 3, 1415926535, 200, 1);
             pi.Add(0, "Wait, there are still some decimals");
             pi.Add(10, 0, 89, 315, 1);
@@ -166,7 +166,7 @@ namespace LDJam45
             pi.Add(0, "What's the ...");
             pi.Add(15, 0, 62643, 315, 2);
             pi.Add(19, 0, 3832, 300, 1);
-            pi.Add(0, "I think that this was the last one");
+            pi.Add(0, "I think this was the last one");
             pi.Add(0, "Wait that's not");
             pi.Add(23, 0, 79502, 315, 1);
             pi.Add(27, 0, 8841, 315, 2);
