@@ -8,6 +8,7 @@ namespace LDJam45
 {
     public class Word : GameObject
     {
+        public int length;
         public bool initialized = false;
         public int spaceMargin = 10;
         public int leftPosition = 75;
@@ -15,7 +16,6 @@ namespace LDJam45
         private int initUpPosition = 0;
         private float initSpeed = 450;
 
-        private int length;
         private List<Letter> letters;
         private SpriteFont font;
         private int lettersOffset;

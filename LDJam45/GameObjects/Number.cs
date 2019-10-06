@@ -8,10 +8,10 @@ namespace LDJam45
     {
         public int number;
         public Vector2 position;
-        public int damage = 100;
+        public int damage = 10;
 
-        private int decim;
-        private int speed;
+        public int decim;
+        public int speed;
 
         private SpriteFont font;
         private Color numberColor = Color.Green;
@@ -54,7 +54,7 @@ namespace LDJam45
                 float removalSpace = font.MeasureString(sNum[0].ToString()).X;
                 number = int.Parse(sNum.Remove(0, 1));
                 position.X += removalSpace;
-                return 0;
+                return -1;
             }
             else
             {

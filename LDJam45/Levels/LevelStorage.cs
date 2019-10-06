@@ -6,7 +6,7 @@ namespace LDJam45
     public static class LevelStorage
     {
         public static List<Level> levels;
-        public static int currentLevel = -1;
+        public static int currentLevel = 1;
         public static int currentEvent = -1;
         public static bool generated = false;
 

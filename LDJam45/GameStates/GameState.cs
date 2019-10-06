@@ -90,6 +90,9 @@ namespace LDJam45
             pg.UnloadContent();
         }
 
+        /*
+         * UPDATE METHODS
+        */
         public override void Update(GameTime gameTime)
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
@@ -121,11 +124,12 @@ namespace LDJam45
                         if (bullets[i].GetRectangle().Intersects(numbers[j].GetRectangle()))
                         {
                             int decim = numbers[j].Hit();
-                            if (decim != 0)
+                            if (decim != -1)
                             {
-                                // TODO split decimal
+                                // Split decimal
+                                SpawnDecimal(decim, numbers[j].speed, numbers[j].position.X);
+                                numbers.RemoveAt(j);
                             }
-                            numbers.RemoveAt(j);
                             bullets.RemoveAt(i);
                             alive = false;
                             break;
@@ -225,13 +229,33 @@ namespace LDJam45
             game.SetState(new WinState(_graphicsDevice));
         }
 
+        /*
+         * SPAWN METHODS
+        */
+        public void SpawnDecimal(int decim, int speed, float xPos)
+        {
+            if (decim <= 0)
+                return;
+            Random rand = new Random();
+            int line = rand.Next(1, currentWord.length);
+            SpawnNumber(decim, 0, speed, line, xPos);
+        }
+
         public void SpawnNumber(int number, int decim, int speed, int line)
         {
+            SpawnNumber(number, decim, speed, line, _graphicsDevice.PreferredBackBufferWidth);
+        }
+
+        public void SpawnNumber(int number, int decim, int speed, int line, float xPos)
+        {
             float lineHeight = currentWord.GetLineHeight(line);
-            Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
+            Vector2 spawnPosition = new Vector2(xPos, lineHeight);
             numbers.Add(new Number(_graphicsDevice, number, decim, spawnPosition, speed, font));
         }
 
+        /*
+         * DRAW METHODS
+        */
         public override void Draw(SpriteBatch spriteBatch)
         {
             //DEBUG
