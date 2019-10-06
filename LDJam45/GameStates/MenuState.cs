@@ -67,7 +67,7 @@ namespace LDJam45
         public virtual void AddLetters(ContentManager contentManager)
         {
             // Place word on screen
-            PlaceWord("LETTERS", -170);
+            PlaceWord("WORDS", -170);
             PlaceWord(centralWord, -120);
             PlaceWord("NUMBERS", -70);
 

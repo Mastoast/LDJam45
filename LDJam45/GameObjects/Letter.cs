@@ -13,8 +13,7 @@ namespace LDJam45
         public Vector2 position;
         public double timeBeforeShot = 0.0;
 
-        // TODO Change to 0.5
-        public static double cooldown = 0.1;
+        public static double cooldown = 0.35;
         public static int squareSize = 40;
         public static int squareMargin = 8;
 

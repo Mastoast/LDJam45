@@ -153,10 +153,6 @@ namespace LDJam45
                             int decim = numbers[j].Hit();
                             if (decim != -1)
                             {
-                                // SPawn particle
-                                //pg.SpawnParticles((int)bullets[i].position.X,
-                                //canceled    (int)bullets[i].position.Y, 2, 7);
-                                // Split decimal
                                 SpawnDecimal(decim, numbers[j].speed, numbers[j].position.X);
                                 numbers.RemoveAt(j);
                             }
@@ -291,8 +287,8 @@ namespace LDJam45
         {
             if (decim <= 0)
                 return;
-            Random rand = new Random();
-            int line = rand.Next(1, currentWord.length);
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
+            int line = rand.Next(1, currentWord.length + 1);
             SpawnNumber(decim, 0, speed, line, xPos);
         }
 
@@ -317,8 +313,7 @@ namespace LDJam45
         public override void Draw(SpriteBatch spriteBatch)
         {
             //DEBUG
-            spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500, 500),
-            Color.Black);
+            //spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500, 500),Color.Black);
             //DEBUG
             // Current word
             currentWord.Draw(spriteBatch);

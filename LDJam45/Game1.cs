@@ -31,7 +31,7 @@ namespace LDJam45
             Content.RootDirectory = "Content";
 
             // First state
-            currentState = new GameState(graphics);
+            currentState = new MenuState(graphics);
             // TODO currentState = new MenuState(graphics);
             currentState.SetGame(this);
         }
@@ -40,7 +40,7 @@ namespace LDJam45
         {
             currentState.Initialize();
 
-            backgroundColor = new Color(0.8f, 0.8f, 0.75f);
+            backgroundColor = new Color(0.8f, 0.8f, 0.70f);
 
             base.Initialize();
         }

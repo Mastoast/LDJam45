@@ -6,7 +6,8 @@ namespace LDJam45
     public static class LevelStorage
     {
         public static List<Level> levels;
-        public static int currentLevel = 2;
+        // TODO change to 0
+        public static int currentLevel = 0;
         public static int currentEvent = -1;
         public static bool generated = false;
 
@@ -21,14 +22,17 @@ namespace LDJam45
             // Tuto : COMMANDER
             Level tuto = CreateLevel("COMMANDER");
             tuto.Add(0, " Welcome to the army soldiers !\n(Press the space key to continue)");
-            tuto.Add(0, "Today you will fight our \n worst enemy : Numbers");
-            tuto.Add(0, "We, Letters, should not let \n        them pass !");
+            tuto.Add(0, "Today you will fight our \n" +
+                        "   worst enemy : Numbers  ");
+            tuto.Add(0, "We, Letters, should not let \n" +
+                        "        them pass !");
             tuto.Add(0, "Each of you will help to stop them");
             tuto.Add(0, "Let's start with NOTHING");
 
             // Level 1 : NOTHING
             Level nothing = CreateLevel("NOTHING");
-            nothing.Add(0, "Press the LETTER KEYS \n to shoot with your letters");
+            nothing.Add(0, "  Press the LETTER KEYS  \n" +
+                            "to shoot with your letters");
             nothing.Add(0, "Don't let numbers get to you");
             nothing.Add(1, 1, 0, 100, 1);
             nothing.Add(1, 1, 0, 100, 6);
@@ -47,8 +51,11 @@ namespace LDJam45
             nothing.Add(12, 2, 0, 100, 2);
             nothing.Add(13, 1, 0, 100, 1);
             nothing.Add(13, 1, 0, 100, 6);
-            nothing.Add(0, "Be careful to not throw bullets\naway for nothing\nit may cost our energy");
-            nothing.Add(0, "Okay, the next wave is comming fast, \n we need a shorter guy \n for the job");
+            nothing.Add(0, "Be careful to not throw bullets\n" +
+                           "       away for nothing        \n" +
+                           "    it may cost our energy    ");
+            nothing.Add(0, "Okay, the next wave is comming fast");
+            nothing.Add(0, "we need a shorter guy for the job");
 
             // Level 2 : IS
             Level est = CreateLevel("IS");
@@ -86,7 +93,8 @@ namespace LDJam45
             //Level 3 : SURE
             Level sure = CreateLevel("SURE");
             sure.Add(0, "the next wave looks stronger");
-            sure.Add(0, "you will need more than one bullet for these");
+            sure.Add(0, "    you will need more   \n" +
+                "than one bullet for these");
             sure.Add(1, 1238, 0, 250, 2);
             sure.Add(2.5f, 1614, 0, 250, 3);
             sure.Add(4, 1974, 0, 250, 4);
@@ -105,7 +113,67 @@ namespace LDJam45
             sure.Add(29f, 1, 2, 250, 4);
             sure.Add(0, "Well done, next !");
 
-            // Level 4 : 
+            // Level 4 : VVVVVV
+            Level vi = CreateLevel("VVVVVV");
+            vi.Add(0, "Wait ! Who are you ?");
+            vi.Add(1, 4687, 0, 350, 1);
+            vi.Add(1, 6175, 0, 350, 2);
+            vi.Add(1, 1238, 0, 350, 3);
+            vi.Add(1, 6986, 0, 350, 4);
+            vi.Add(1, 7618, 0, 350, 5);
+            vi.Add(1, 3197, 0, 350, 6);
+            vi.Add(0, "well, that's pretty impressive");
+            vi.Add(0, "please continue");
+            vi.Add(5, 4687, 0, 350, 1);
+            vi.Add(5, 6175, 0, 350, 2);
+            vi.Add(5, 1238, 0, 350, 3);
+            vi.Add(5, 6986, 0, 350, 4);
+            vi.Add(5, 7618, 0, 350, 5);
+            vi.Add(5, 3197, 0, 350, 6);
+            //
+            vi.Add(7.5f, 4687, 0, 350, 1);
+            vi.Add(7.5f, 6175, 0, 350, 2);
+            vi.Add(7.5f, 1238, 0, 350, 3);
+            vi.Add(7.5f, 6986, 0, 350, 4);
+            vi.Add(7.5f, 7618, 0, 350, 5);
+            vi.Add(7.5f, 3197, 0, 350, 6);
+            //
+            vi.Add(10, 36, 4, 350, 6);
+            vi.Add(13, 7, 49, 350, 6);
+            vi.Add(0, "ok stop now");
+            vi.Add(0, " you will just kill yourself \n" +
+                "  if you continue like that");
+            vi.Add(0, "Next !");
+
+            // Level 5 : EASY
+            Level easy = CreateLevel("EASY");
+            easy.Add(0, "GET READY !");
+            //easy.Add(1, , , , 1);
+
+            // Level 6 : DIFFICULT
+            Level diff = CreateLevel("DIFFICULT");
+            diff.Add(0, "Wait ! Who are you ?");
+
+            // Level 7 : PI
+            Level pi = CreateLevel("MATH");
+            pi.Add(0, "The big one is comming");
+            pi.Add(3, 3, 1415926535, 200, 1);
+            pi.Add(0, "Wait, there are still some decimals");
+            pi.Add(10, 0, 89, 315, 1);
+            pi.Add(11, 0, 79, 300, 2);
+            pi.Add(12, 0, 32, 315, 3);
+            pi.Add(13, 0, 384, 300, 4);
+            pi.Add(0, "What's the ...");
+            pi.Add(15, 0, 62643, 315, 2);
+            pi.Add(19, 0, 3832, 300, 1);
+            pi.Add(0, "I think that this was the last one");
+            pi.Add(0, "Wait that's not");
+            pi.Add(23, 0, 79502, 315, 1);
+            pi.Add(27, 0, 8841, 315, 2);
+            pi.Add(0, "It will stop one day");
+            pi.Add(31, 0, 9716, 300, 3);
+            pi.Add(31, 0, 93993, 300, 1);
+            pi.Add(0, "Good job soldier that's a victory");
         }
 
         private static Level CreateLevel(string word)
