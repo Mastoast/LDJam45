@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -26,6 +27,7 @@ namespace LDJam45
 
         private SoundEffect pressSfx;
         private SoundEffectInstance pressSfxInst;
+        private Random random;
 
         private Color letterColor = Color.Black;
         private Color marginColor = Color.Maroon;
@@ -60,8 +62,10 @@ namespace LDJam45
             squareOrigin = new Vector2(squareText.Height / 2f, squareText.Width / 2f);
 
             // load sfx
-            pressSfx = content.Load<SoundEffect>("Sounds/press");
+            random = new Random(Guid.NewGuid().GetHashCode());
+            pressSfx = content.Load<SoundEffect>("Sounds/tap");
             pressSfxInst = pressSfx.CreateInstance();
+            pressSfxInst.Volume = 0.8f;
         }
 
         public override void UnloadContent()
@@ -108,6 +112,7 @@ namespace LDJam45
                         timeBeforeShot = cooldown;
                         backColor = backCdColor;
                         // Play sfx
+                        pressSfxInst.Pitch =  random.Next(-2, 2) * 0.2f;
                         pressSfxInst.Stop();
                         pressSfxInst.Play();
                     }

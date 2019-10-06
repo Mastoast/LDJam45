@@ -6,7 +6,7 @@ namespace LDJam45
     public static class LevelStorage
     {
         public static List<Level> levels;
-        public static int currentLevel = 2;
+        public static int currentLevel = 1;
         public static int currentEvent = -1;
         public static bool generated = false;
 
@@ -29,7 +29,7 @@ namespace LDJam45
             // Level 1 : NOTHING
             Level nothing = CreateLevel("NOTHING");
             nothing.Add(0, "Press the LETTER KEYS \n to shoot with your letters");
-            nothing.Add(0, "Don't let them touch you");
+            nothing.Add(0, "Don't let numbers get to you");
             nothing.Add(1, 1, 0, 100, 1);
             nothing.Add(1, 1, 0, 100, 6);
             nothing.Add(2, 2, 0, 100, 2);
@@ -47,10 +47,12 @@ namespace LDJam45
             nothing.Add(12, 2, 0, 100, 2);
             nothing.Add(13, 1, 0, 100, 1);
             nothing.Add(13, 1, 0, 100, 6);
-            nothing.Add(20, "Next ones will be fast, \n we need a shorter guy \n for the next wave");
+            nothing.Add(0, "Be careful to not throw bullets\naway for nothing\nit may cost our energy");
+            nothing.Add(0, "Okay, the next wave is comming fast, \n we need a shorter guy \n for the job");
 
             // Level 2 : IS
             Level est = CreateLevel("IS");
+            est.Add(0, "Get ready !");
             est.Add(1, 1, 0, 250, 1);
             est.Add(1.5f, 1, 0, 250, 2);
             est.Add(2, 1, 0, 250, 1);

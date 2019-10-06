@@ -41,6 +41,7 @@ namespace LDJam45
         {
             hitSfx = content.Load<SoundEffect>("Sounds/numHit");
             hitSfxInst = hitSfx.CreateInstance();
+            hitSfxInst.Volume = 0.5f;
         }
 
         public override void UnloadContent()
@@ -50,7 +51,7 @@ namespace LDJam45
         public override void Update(GameTime gameTime)
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
-            this.position.X -= (float)delta * speed;
+            position.X -= (float)delta * speed;
         }
 
         public int Hit()

@@ -73,6 +73,7 @@ namespace LDJam45
             // load sfx
             hitSfx = contentManager.Load<SoundEffect>("Sounds/hit");
             hitSfxInst = hitSfx.CreateInstance();
+            hitSfxInst.Volume = 0.7f;
 
             //  Start the first Word
             if (LevelStorage.currentLevel == -1)
@@ -95,6 +96,8 @@ namespace LDJam45
             // Reset level timer
             if (gameTime != null)
                 gameTime.TotalGameTime = TimeSpan.Zero;
+            // Reset HP
+            health = 100;
             // Start first event
             nextEvent = currentLevel.GetNextEvent();
         }
@@ -131,6 +134,8 @@ namespace LDJam45
                 if (bullets[i].position.X >= _graphicsDevice.PreferredBackBufferWidth)
                 {
                     bullets.RemoveAt(i);
+                    if (!frozen)
+                        Hurt(2);
                 }
                 else
                 {
@@ -183,6 +188,9 @@ namespace LDJam45
             pg.Update(gameTime);
         }
 
+        /*
+         * EVENTS
+        */
         public void HandleEvent(GameTime gameTime)
         {
             // Time frozen with texts
@@ -217,6 +225,8 @@ namespace LDJam45
             {
                 if (nextEvent.text != "")
                 {
+                    if (numbers.Count != 0)
+                        return;
                     // Print event
                     balloon.SetText(nextEvent.text);
                     frozen = true;

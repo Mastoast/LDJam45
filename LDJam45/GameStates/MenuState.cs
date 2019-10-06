@@ -19,7 +19,7 @@ namespace LDJam45
         public MenuState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
             centralWord = "AGAINST";
-            Letter.cooldown = 15;
+            Letter.cooldown = 25;
         }
 
         public void PlaceWord(string word, int offsetY)

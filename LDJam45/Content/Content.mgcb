@@ -44,3 +44,9 @@
 /processorParam:Quality=Best
 /build:Sounds/press.wav
 
+#begin Sounds/tap.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/tap.wav
+
