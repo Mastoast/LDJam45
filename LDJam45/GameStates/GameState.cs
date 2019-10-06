@@ -22,6 +22,9 @@ namespace LDJam45
         protected ParticleGenerator pg;
         private ContentManager contentManager;
 
+        private double freezeTime;
+        private bool frozen = false;
+
         public GameState(GraphicsDeviceManager graphicsDevice) : base(graphicsDevice)
         {
         }
@@ -84,7 +87,6 @@ namespace LDJam45
         public override void Update(GameTime gameTime)
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;
-
             //Balloon
             balloon.Update(gameTime);
 
@@ -156,6 +158,18 @@ namespace LDJam45
 
         public void HandleEvent(GameTime gameTime)
         {
+            // Time frozen with texts
+            if (frozen)
+            {
+                if (balloon.text == "")
+                {
+                    gameTime.TotalGameTime = TimeSpan.FromSeconds(freezeTime);
+                    frozen = false;
+                    nextEvent = currentLevel.GetNextEvent();
+                }
+                return;
+            }
+
             // End of the level
             if (nextEvent.time == 0 && nextEvent.text == "")
             {
@@ -174,22 +188,19 @@ namespace LDJam45
             // Handle next event
             if (nextEvent.time <= gameTime.TotalGameTime.TotalSeconds)
             {
-                if (nextEvent.line != 0)
-                {
-                    // spawn event
-                    SpawnNumber(nextEvent.number, nextEvent.decim, nextEvent.speed, nextEvent.line);
-                    //
-                    //float lineHeight = currentWord.GetLineHeight(nextEvent.line);
-                    //Vector2 spawnPosition = new Vector2(_graphicsDevice.PreferredBackBufferWidth, lineHeight);
-                    //numbers.Add(new Number(_graphicsDevice, nextEvent.number, nextEvent.decim,
-                    //    spawnPosition, nextEvent.speed, font));
-                }
                 if (nextEvent.text != "")
                 {
                     // Print event
-                    balloon.SetText(nextEvent.text, 10f);
+                    balloon.SetText(nextEvent.text);
+                    frozen = true;
+                    freezeTime = gameTime.TotalGameTime.TotalSeconds;
                 }
-                nextEvent = currentLevel.GetNextEvent();
+                else if (nextEvent.line != 0)
+                {
+                    // spawn event
+                    SpawnNumber(nextEvent.number, nextEvent.decim, nextEvent.speed, nextEvent.line);
+                    nextEvent = currentLevel.GetNextEvent();
+                }
             }
         }
 

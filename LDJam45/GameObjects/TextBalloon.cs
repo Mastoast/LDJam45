@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace LDJam45
 {
@@ -12,12 +13,12 @@ namespace LDJam45
         private Texture2D rectTexture;
         private Vector2 rectOrigin;
 
+        private bool lastPressed = true;
+
         private SpriteFont font;
         private Color textColor;
         private Color marginColor;
         private Color backColor;
-
-        private float countdown;
 
         private Vector2 marginOffset;
         private int marginSize;
@@ -38,7 +39,6 @@ namespace LDJam45
 
             text = "TEST";
             position = new Rectangle(_graphicsDevice.PreferredBackBufferWidth / 2, 100, 800, 100);
-            countdown = 0f;
 
             marginOffset = backOffset = textOffset = Vector2.Zero;
             marginSize = 8;
@@ -62,17 +62,35 @@ namespace LDJam45
         */
         public override void Update(GameTime gameTime)
         {
-            double delta = gameTime.ElapsedGameTime.TotalSeconds;
+            // Skip if non active
+            if (text == "")
+                return;
 
+            // Is SpaceBar pressed
+            var kstate = Keyboard.GetState();
+            if (kstate.IsKeyDown(Keys.Space))
+            {
+                // Only if new press
+                if (!lastPressed)
+                {
+                    text = "";
+                }
+                lastPressed = true;
+            }
+            else
+            {
+                lastPressed = false;
+            }
+
+            double delta = gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         /*
          * PRINT A NEW TEXT
         */
-        public void SetText(string text, float duration)
+        public void SetText(string text)
         {
             this.text = text;
-            countdown = duration;
         }
 
         /*
@@ -80,6 +98,8 @@ namespace LDJam45
         */
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (text == "")
+                return;
             Rectangle marginPosition = position;
             marginPosition.Width += marginSize;
             marginPosition.Height += marginSize;

@@ -21,7 +21,7 @@ namespace LDJam45
             nothing.Add(0, "Welcome to the army soldiers !");
             nothing.Add(0, "Today you will fight our \n worst enemy : Numbers");
             nothing.Add(0, "We, Letters, will not let \n    them go through !");
-            nothing.Add(0, "Each of you will help stopping them,");
+            nothing.Add(0, "Each of you will \n help stopping them,");
             nothing.Add(0, "Let's start with nothing");
             nothing.Add(1, 1, 0, 100, 1);
             nothing.Add(1, 1, 0, 100, 6);
