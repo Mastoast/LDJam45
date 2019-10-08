@@ -287,10 +287,24 @@ namespace LDJam45
 
         public Event GetNextEvent()
         {
+            // Endless Mode
+            if (LevelStorage.inBonus)
+                return GetRandomEvent();
+            // End of level
             if (LevelStorage.currentEvent == events.Count - 1)
                 return new Event(0, ""); // No more events
             LevelStorage.currentEvent += 1;
             return events[LevelStorage.currentEvent];
+        }
+
+        public Event GetRandomEvent()
+        {
+            Random rand = new Random();
+            int randNum = rand.Next(1, 999);
+            int randDec = rand.Next(1, 999);
+            int randSpeed = rand.Next(250, 400);
+            int randLine = rand.Next(1, 7);
+            return new Event(1, randNum, randDec, randSpeed, randLine);
         }
     }
 

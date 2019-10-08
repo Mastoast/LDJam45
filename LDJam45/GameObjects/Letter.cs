@@ -12,6 +12,7 @@ namespace LDJam45
         public string letter;
         public Vector2 position;
         public double timeBeforeShot = 0.0;
+        public bool noCooldown = true;
 
         public static double cooldown = 0.35;
         public static int squareSize = 40;
@@ -105,7 +106,7 @@ namespace LDJam45
                 // Only if new press
                 if (!lastPressed)
                 {
-                    if (timeBeforeShot == 0.0)
+                    if (timeBeforeShot == 0.0 || noCooldown)
                     {
                         // Shoot
                         Shoot();

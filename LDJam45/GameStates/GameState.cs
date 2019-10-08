@@ -150,6 +150,7 @@ namespace LDJam45
                     {
                         Hurt(bulletDamage);
                     }
+                    // TO CLEAN
                     if (LevelStorage.inBonus && frozen)
                     {
                         Hurt(bulletDamage);
@@ -229,10 +230,11 @@ namespace LDJam45
                 {
                     bonusSpawnCounter += gameTime.ElapsedGameTime.TotalSeconds;
                 }
+                return;
             }
 
             // Time frozen with texts
-            if (frozen)
+            if (frozen && !LevelStorage.inBonus)
             {
                 if (balloon.text == "")
                 {
