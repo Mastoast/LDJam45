@@ -6,7 +6,6 @@ namespace LDJam45
     public static class LevelStorage
     {
         public static List<Level> levels;
-        // TODO change to 0
         public static int currentLevel = 0;
         public static int currentEvent = -1;
         public static bool generated = false;
@@ -232,10 +231,6 @@ namespace LDJam45
             pi.Add(31, 0, 9716, 300, 3);
             pi.Add(31, 0, 93993, 300, 1);
             pi.Add(0, "Good job soldier that's a victory");
-
-            // Level 8 Skip
-            /*Level skip = CreateLevel("SKIP");
-            skip.Add(0, " ");*/
         }
 
         private static Level CreateLevel(string word)

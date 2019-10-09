@@ -102,6 +102,18 @@ namespace LDJam45
                 + (spaceMargin * ((line % (length + 1)) - 1)) - (squareSize / 2);
         }
 
+        public int GetLine(Number number)
+        {
+            int squareSize = Letter.squareSize + Letter.squareMargin;
+            for (int i = 0; i < letters.Count; i++)
+            {
+                if ((number.position.Y + squareSize / 2) == letters[i].position.Y)
+                    return i + 1;
+            }
+            // Line not found
+            return 0;
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             // Count letter in place

@@ -2,12 +2,13 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
+using System;
 
 namespace LDJam45
 {
     public class Number : GameObject
     {
-        public int number;
+        public string number;
         public Vector2 position;
         public int damage = 10;
 
@@ -26,7 +27,7 @@ namespace LDJam45
         public Number(GraphicsDeviceManager graphicsDevice, int number, int decim, Vector2 position, int speed, SpriteFont font) : base(graphicsDevice)
         {
             this.font = font;
-            this.number = number;
+            this.number = number.ToString();
             this.decim = decim;
             this.position = position;
             this.speed = speed;
@@ -61,12 +62,11 @@ namespace LDJam45
             hitSfxInst.Play();
 
             // Loose digit
-            string sNum = number.ToString();
-            if (sNum.Length > 1)
+            if (number.Length > 1)
             {
-                float removalSpace = font.MeasureString(sNum[0].ToString()).X;
-                number = int.Parse(sNum.Remove(0, 1));
-                position.X += removalSpace;
+                float removedSpace = font.MeasureString(number[0].ToString()).X;
+                number = number.Remove(0, 1);
+                position.X += removedSpace;
                 return -1;
             }
             else
@@ -79,7 +79,7 @@ namespace LDJam45
         // Return rectangle hitbox
         public Rectangle GetRectangle()
         {
-            Vector2 measure = font.MeasureString(number.ToString());
+            Vector2 measure = font.MeasureString(number);
             return new Rectangle((int)position.X, (int)position.Y, (int)measure.X, (int)measure.Y);
         }
 
@@ -87,14 +87,14 @@ namespace LDJam45
         {
             //Font
             // number
-            spriteBatch.DrawString(font, number.ToString(), position, numberColor, 0f,
+            spriteBatch.DrawString(font, number, position, numberColor, 0f,
                 Vector2.Zero, 1f, SpriteEffects.None, 0.8f);
 
             // decimal
             if (decim != 0)
             {
                 //number offset
-                float numOffset = font.MeasureString(number.ToString()).X;
+                float numOffset = font.MeasureString(number).X;
                 //dot offset
                 float dotOffset = font.MeasureString(".").X;
                 Vector2 dotPosition = new Vector2(position.X + numOffset, position.Y);

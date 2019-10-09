@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Audio;
+using System.Linq;
 
 namespace LDJam45
 {
@@ -168,7 +169,8 @@ namespace LDJam45
                             int decim = numbers[j].Hit();
                             if (decim != -1)
                             {
-                                SpawnDecimal(decim, numbers[j].speed, numbers[j].position.X);
+                                int oldLine = currentWord.GetLine(numbers[j]);
+                                SpawnDecimal(decim, numbers[j].speed, numbers[j].position.X, oldLine);
                                 numbers.RemoveAt(j);
                                 LevelStorage.score += 10;
                             }
@@ -196,7 +198,7 @@ namespace LDJam45
                     // Check collisions
                     if (numbers[i].position.X <= (currentWord.leftPosition + Letter.squareSize))
                     {
-                        Hurt(numbers[i].damage * numbers[i].number.ToString().Length);
+                        Hurt(numbers[i].damage * numbers[i].number.Length);
                         numbers.RemoveAt(i);
                     }
                     else
@@ -246,7 +248,8 @@ namespace LDJam45
             }
 
             // End of the level
-            if (nextEvent.time == 0 && nextEvent.text == "")
+            if (nextEvent.time == 0 && nextEvent.text == "" 
+                && nextEvent.number == 0 && nextEvent.decim == 0)
             {
                 if (numbers.Count != 0)
                     return; // wait for all numbers to disapear
@@ -318,13 +321,19 @@ namespace LDJam45
         /*
          * SPAWN METHODS
         */
-        public void SpawnDecimal(int decim, int speed, float xPos)
+        public void SpawnDecimal(int decim, int speed, float xPos, int oldLine)
         {
             if (decim <= 0)
                 return;
+            // Get a random new line
             Random rand = new Random(Guid.NewGuid().GetHashCode());
-            int line = rand.Next(1, currentWord.length + 1);
-            SpawnNumber(decim, 0, speed, line, xPos);
+            // Exclude old line
+            var range = Enumerable.Range(1, currentWord.length).Where(i => i != oldLine);
+            Console.WriteLine(range.Count() + " count | last " + range.Last());
+            int index = rand.Next(0, currentWord.length - 1); // -1 for the oldline
+            int newLine = range.ElementAt(index);
+            Console.WriteLine(oldLine + " to " + newLine);
+            SpawnNumber(decim, 0, speed, newLine, xPos);
         }
 
         public void SpawnNumber(int number, int decim, int speed, int line)

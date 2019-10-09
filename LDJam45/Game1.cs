@@ -32,7 +32,6 @@ namespace LDJam45
 
             // First state
             currentState = new MenuState(graphics);
-            // TODO currentState = new MenuState(graphics);
             currentState.SetGame(this);
         }
 
