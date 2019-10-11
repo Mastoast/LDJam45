@@ -42,7 +42,6 @@ namespace LDJam45
 
             this.font = font;
             rotation = 0f;
-            rotationSpeed = 0.5f;
             position = Vector2.Zero;
 
             backNormalColor = new Color(0.9f, 0.9f, 0.9f);
