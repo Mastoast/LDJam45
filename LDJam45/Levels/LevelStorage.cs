@@ -11,7 +11,6 @@ namespace LDJam45
         public static bool generated = false;
 
         public static bool inBonus = false;
-        public static Level bonusLvl = new Level("ASDJKL");
         public static int score = 0;
         public static int maxScore = 0;
 
@@ -231,6 +230,13 @@ namespace LDJam45
             pi.Add(31, 0, 9716, 300, 3);
             pi.Add(31, 0, 93993, 300, 1);
             pi.Add(0, "Good job soldier that's a victory");
+
+            // DEBUG
+            /*
+            Level debug = CreateLevel("aaa");
+            debug.Add(1, 1, 1, 200, 1);
+            debug.Add(0, "a");
+            */
         }
 
         private static Level CreateLevel(string word)
@@ -253,7 +259,7 @@ namespace LDJam45
         public static Level GetCurrentLevel()
         {
             if (inBonus)
-                return bonusLvl;
+                return new Level("ASDJKL");
             currentEvent = -1;
             return levels[currentLevel];
         }

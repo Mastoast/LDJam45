@@ -13,7 +13,7 @@ namespace LDJam45
 
         public override void NextState(GameTime gameTime)
         {
-            GameState bonusState = new GameState(_graphicsDevice);
+            GameState bonusState = new BonusGameState(_graphicsDevice);
             bonusState.SwitchtoBonus(gameTime);
             this.game.SetState(bonusState);
         }

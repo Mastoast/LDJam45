@@ -25,14 +25,10 @@ namespace LDJam45
         protected SoundEffectInstance hitSfxInst;
 
         protected SpriteFont font;
-        protected ParticleGenerator pg;
         private ContentManager contentManager;
 
         private Texture2D rectTexture;
         private Vector2 rectOrigin;
-
-        private double bonusSpawnDelay = 3.5;
-        private double bonusSpawnCounter = 0;
 
         private double freezeTime;
         private bool frozen = false;
@@ -51,9 +47,6 @@ namespace LDJam45
             numbers = new List<Number>();
             // Bullets list
             bullets = new List<Bullet>();
-
-            // Particle generator
-            pg = ParticleGenerator.GetInstance(_graphicsDevice);
 
             // Load levels only if not already started
             if (!LevelStorage.generated)
@@ -110,8 +103,7 @@ namespace LDJam45
             // reset frozen
             frozen = false;
             // Start first event
-            if (!LevelStorage.inBonus)
-                nextEvent = currentLevel.GetNextEvent();
+            nextEvent = currentLevel.GetNextEvent();
         }
 
         public override void UnloadContent()
@@ -119,7 +111,6 @@ namespace LDJam45
             rectTexture.Dispose();
             currentWord.UnloadContent();
             balloon.UnloadContent();
-            pg.UnloadContent();
         }
 
         /*
@@ -148,11 +139,6 @@ namespace LDJam45
                 {
                     bullets.RemoveAt(i);
                     if (!frozen)
-                    {
-                        Hurt(bulletDamage);
-                    }
-                    // TO CLEAN
-                    if (LevelStorage.inBonus && frozen)
                     {
                         Hurt(bulletDamage);
                     }
@@ -210,33 +196,15 @@ namespace LDJam45
 
             // Handle events
             HandleEvent(gameTime);
-
-            // Particle Generator
-            pg.Update(gameTime);
         }
 
         /*
          * EVENTS
         */
-        public void HandleEvent(GameTime gameTime)
+        public virtual void HandleEvent(GameTime gameTime)
         {
-            // Bonus
-            if (LevelStorage.inBonus)
-            {
-                if (bonusSpawnCounter >= bonusSpawnDelay)
-                {
-                    bonusSpawnCounter = 0.0;
-                    RandomSpawn(gameTime.ElapsedGameTime.Seconds);
-                }
-                else
-                {
-                    bonusSpawnCounter += gameTime.ElapsedGameTime.TotalSeconds;
-                }
-                return;
-            }
-
             // Time frozen with texts
-            if (frozen && !LevelStorage.inBonus)
+            if (frozen)
             {
                 if (balloon.text == "")
                 {
@@ -287,15 +255,6 @@ namespace LDJam45
         public void SwitchtoBonus(GameTime gameTime)
         {
             LevelStorage.inBonus = true;
-        }
-
-        public void RandomSpawn(int seed)
-        {
-            Random rand = new Random();
-
-            int rLine = rand.Next(1, currentWord.length + 1);
-            // spawn event
-            SpawnNumber(rand.Next(1, 99), rand.Next(1, 99), rand.Next(250, 400), rLine);
         }
 
         public void Hurt(int amount)
@@ -359,19 +318,12 @@ namespace LDJam45
             //DEBUG
             //spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500, 500),Color.Black);
             //DEBUG
-            // Score
-            if (LevelStorage.inBonus)
-            {
-                spriteBatch.DrawString(font, "Score : " + LevelStorage.score.ToString(),
-                    new Vector2(500, 50), Color.Black);
-            }
 
             // Current word
             currentWord.Draw(spriteBatch);
 
             //Balloon
-            if (!LevelStorage.inBonus)
-                balloon.Draw(spriteBatch);
+            balloon.Draw(spriteBatch);
 
             // Bullets
             foreach (var item in bullets)
@@ -387,9 +339,6 @@ namespace LDJam45
 
             // Health
             DrawHealthBar(spriteBatch);
-
-            // Particle Generator
-            pg.Draw(spriteBatch);
         }
 
         public void DrawHealthBar(SpriteBatch spriteBatch)
