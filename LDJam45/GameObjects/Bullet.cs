@@ -18,7 +18,6 @@ namespace LDJam45
             this.letter = letter;
             this.position = position;
             this.font = font;
-            //bulletColor = Color.Lerp(Color.White, Color.Black, 0.3f);
             bulletColor = Color.Multiply(Color.Black, 0.9f);
         }
 

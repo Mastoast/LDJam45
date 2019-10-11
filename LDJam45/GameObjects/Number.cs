@@ -45,10 +45,6 @@ namespace LDJam45
             hitSfxInst.Volume = 0.5f;
         }
 
-        public override void UnloadContent()
-        {
-        }
-
         public override void Update(GameTime gameTime)
         {
             double delta = gameTime.ElapsedGameTime.TotalSeconds;

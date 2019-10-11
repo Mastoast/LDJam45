@@ -19,7 +19,6 @@ namespace LDJam45
         public static int squareMargin = 8;
 
         private float rotation;
-        private float rotationSpeed;
         private bool lastPressed = true;
 
         private Texture2D squareText;

@@ -363,9 +363,4 @@ spriteBatch.DrawString(font, debugText.ToString(), new Vector2(500, 500),
 Color.Black);
 //DEBUG
 
-var kstate = Keyboard.GetState();
-if (kstate.IsKeyDown(Keys.Up))
-{
-
-}
 */
